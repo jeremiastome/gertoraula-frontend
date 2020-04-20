@@ -9,41 +9,7 @@ class App extends Component {
   constructor(props) {
       super(props);
       this.state = {
-          cursos : [
-             {
-                id: 1,
-                nombre: '5° A Tarde',
-                alumnos: [{
-                  nombre: 'Juan',
-                  apellido: 'Fernandez'
-                },
-                {
-                  nombre: 'Carlos',
-                  apellido: 'Puyol'
-                },
-                {
-                  nombre: 'Cristiano',
-                  apellido: 'Ronaldo'
-                }
-              ]
-             },
-             {
-                id: 2,
-                nombre: '5° B Mañana',
-                alumnos: [{
-                  nombre: 'Juan',
-                  apellido: 'Fernandez'
-                }]
-             },
-             {
-                id: 3,
-                nombre: '5° C Mañana',
-                alumnos: [{
-                  nombre: 'Juan',
-                  apellido: 'Fernandez'
-                }]
-              }
-          ],
+          cursos : [],
           cursoSeleccionado : {}
       }
 
@@ -58,6 +24,27 @@ class App extends Component {
      
   }
 
+  componentDidMount() {
+      this.obtenerCursos();
+  }
+
+  obtenerCursos() {
+    console.log('Obtener cursos');
+    
+    fetch("http://localhost:8080/cursos")
+        .then(res => res.json())
+        .then(resultado => {
+                this.setState({
+                    cursos: resultado
+                })
+            },
+            error => {
+                this.setState({
+                    error: error
+                })
+            })
+  }
+
   render() {
     return(
       <Router>
@@ -67,6 +54,7 @@ class App extends Component {
                </Route>
                <Route exact path="/alumnos">
                     <Alumnos 
+                      key={this.state.cursoSeleccionado.id}
                       id={this.state.cursoSeleccionado.id} 
                       nombre={this.state.cursoSeleccionado.nombre} 
                       alumnos={this.state.cursoSeleccionado.alumnos}/>
