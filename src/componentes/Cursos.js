@@ -6,6 +6,7 @@ const Cursos = props => {
     const {listaCursos, seleccionarCurso} = props;
     return(
         <div>
+            <h1 style={{textAlign: "center"}}> Cursos</h1>
             {listaCursos.map(data => {
                 return (
                     <Curso key={data.id} curso={data} seleccionarCurso={seleccionarCurso}
