@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import {
   withStyles,
   Card,
@@ -11,88 +12,60 @@ import MuiAlert from '@material-ui/lab/Alert';
 import PropTypes from "prop-types";
 import Styles from "../style/Styles";
 import Alumno from './Alumno';
-import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
+import { BrowserRouter as Router, Route, Link, useParams, Switch, useLocation } from 'react-router-dom';
 
-function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+export default function Alumnos() {
 
-
-const Alumnos = props => {
-    
-    const useStyles = makeStyles((theme) => ({
-        root: {
-            width: '100%',
-            '& > * + *': {
-            marginTop: theme.spacing(2),
-            },
-        },
-    }));
-
-        
-    const history = useHistory();
+    const location = useLocation();
     const [open, setOpen] = React.useState(false);
-    const classes = useStyles();
 
-    const {
-        id,
-        nombre,
-        alumnos,
-        agregarAsistencia,
-        guardarAsistencias
-    } = props  
-      
-    const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-        return;
+    function guardarAsistencias(id) {
+        console.log('guardarAsistencias ' + id);
+        if (!location.asistencias || !id) return;
+        console.log(location.asistencias);
+
+        fetch("http://localhost:8080/cursos/" + id, {
+            method: 'PUT',
+            headers: {
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify(location.asistencias)
+        })
+        .then(res => console.log('res ' + res))
+        setOpen(true);
     }
 
-    setOpen(false);
-    };
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
 
-    const guardar = () => {
-        setOpen(true);
-        console.log(guardarAsistencias(id));
-    };
-
-    const atras = () => {
-        history.goBack();
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+            setOpen(false);
     };
 
     return(
-        <div style={{alignContent: "center"}}>
+        <div>
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="success">
-                Se guardaron las asistencias!
+                    Se guardaron las asistencias!
                 </Alert>
             </Snackbar>
-
-            <h1 style={{textAlign: "center"}}> Asistencias alumnos</h1>
-                {alumnos.map(data => {
+            <h1>
+                Asistencias alumnos
+            </h1>
+            { location.alumnos.map(data => {
                 return(
-                    <div>
-                        <Alumno key={data.id} id={id} alumno={data} 
-                            agregarAsistencia={agregarAsistencia}></Alumno>                    
-                    </div>
+                    <Alumno key = { data.id } alumno = { data } />
                 );
-                    
-                })}
-                <div style={{textAlign: "center"}}>
-                    <Button variant="contained" color="primary" onClick={guardar}>Guardar</Button>
-
-                    <Button variant="contained" onClick={atras} >Atras</Button>
-                </div>
+            })};
+            <div>
+                <Button variant = "contained" color = "primary" onClick = {() => { guardarAsistencias(location.cursoId) }}> Guardar </Button>
+            </div>
         </div>
     )
 }
-
-Alumnos.propTypes = {
-    id: PropTypes.number,
-    nombre: PropTypes.string.isRequired,
-    alumnos: PropTypes.array.isRequired,
-    guardarAsistencias: PropTypes.func.isRequired,
-};
-
-export default withStyles(Styles)(Alumnos);
-  
