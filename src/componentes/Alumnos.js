@@ -1,40 +1,21 @@
 import React from "react";
-import { useEffect } from "react";
 import {
-  withStyles,
-  Card,
   Snackbar,
   Button,
-  CardContent,
-  Typography
 } from "@material-ui/core";
 import MuiAlert from '@material-ui/lab/Alert';
-import PropTypes from "prop-types";
-import Styles from "../style/Styles";
 import Alumno from './Alumno';
-import { makeStyles } from '@material-ui/core/styles';
-import { BrowserRouter as Router, Route, Link, useParams, Switch, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { CursosService } from '../services/CursoService';
 
 export default function Alumnos() {
 
     const location = useLocation();
     const [open, setOpen] = React.useState(false);
 
-    function guardarAsistencias(id) {
-        console.log('guardarAsistencias ' + id);
-        if (!location.asistencias || !id) return;
-        console.log(location.asistencias);
-
-        fetch("http://localhost:8080/cursos/" + id, {
-            method: 'PUT',
-            headers: {
-                'Accept' : 'application/json',
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify(location.asistencias)
-        })
-        .then(res => console.log('res ' + res))
+    function guardarAsistencias() {
         setOpen(true);
+        CursosService.guardarAsistencias(location.cursoId, location.asistencias);
     }
 
     function Alert(props) {

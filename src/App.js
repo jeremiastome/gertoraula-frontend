@@ -8,25 +8,11 @@ import { BrowserRouter as Router, Route, Link, useParams, Switch, useLocation, u
 
 export default function App() {
 
-  const [cursos, setCursos] = useState([]);
-
-  function obtenerCursos() {
-    fetch("http://localhost:8080/cursos")
-      .then(res => res.json())
-      .then(resultado => {
-        setCursos(resultado);
-      });
-  }
-
-  useEffect(() => {
-    obtenerCursos();
-  }, []);
-
   return(
     <Router>
       <MenuAppBar />
         <Route exact path = "/">
-          <Cursos listaDeCursos = { cursos } />
+          <Cursos />
         </Route>
         <Route exact path = "/alumnos" component = { Alumnos } />
     </Router>

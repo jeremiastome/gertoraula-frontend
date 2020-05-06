@@ -1,14 +1,10 @@
-import React , {useState} from "react";
+import React from "react";
 import {
-  withStyles,
   Card,
   CardContent,
   Typography
 } from "@material-ui/core";
-import PropTypes from "prop-types";
-import Styles from "../style/Styles";
-import Alumnos from './Alumnos';
-import { BrowserRouter as Router, Route, Link, useParams, Switch, useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 export default function Curso(props) {
 
@@ -18,7 +14,7 @@ export default function Curso(props) {
         history.push({
             pathname : '/alumnos',
             alumnos : props.curso.alumnos,
-            asistencias : props.curso.asistencias,
+            asistencias : [],
             cursoId : props.curso.id
         });
     }
