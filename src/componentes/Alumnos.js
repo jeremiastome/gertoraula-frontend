@@ -2,6 +2,7 @@ import React from "react";
 import {
   Snackbar,
   Button,
+  responsiveFontSizes,
 } from "@material-ui/core";
 import MuiAlert from '@material-ui/lab/Alert';
 import Alumno from './Alumno';
@@ -13,9 +14,11 @@ export default function Alumnos() {
     const location = useLocation();
     const [open, setOpen] = React.useState(false);
 
-    function guardarAsistencias() {
-        setOpen(true);
-        CursosService.guardarAsistencias(location.cursoId, location.asistencias);
+    function guardarAsistencias() {        
+        CursosService.guardarAsistencias(location.cursoId, location.asistencias).then(response => {
+            CursosService.eliminarAsistencias(location.asistenciasAEliminar);
+            setOpen(true);            
+        });      
     }
 
     function Alert(props) {

@@ -21,5 +21,21 @@ export const CursosService = {
             body: JSON.stringify(asistenciasCurso)
         })
         console.log('res ' + response);
+        return response;
+    },
+
+    eliminarAsistencias : async (asistenciasAEliminar) => {
+
+        if (!asistenciasAEliminar) return;
+
+        let response = await fetch("http://localhost:8080/asistencias" , {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(asistenciasAEliminar)
+        })
+        console.log('res ' + response);
     }
 }

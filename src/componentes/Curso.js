@@ -15,6 +15,7 @@ export default function Curso(props) {
             pathname : '/alumnos',
             alumnos : props.curso.alumnos,
             asistencias : [],
+            asistenciasAEliminar : [],
             cursoId : props.curso.id
         });
     }
