@@ -11,6 +11,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import CrearCursos from './CrearCursos';
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,6 +34,7 @@ export default function MenuAppBar() {
   const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [show, setShow] = React.useState(false);
   const open = Boolean(anchorEl);
 
   const handleChange = (event) => {
@@ -42,6 +49,9 @@ export default function MenuAppBar() {
     setAnchorEl(null);
   };
 
+  const abrirModalCurso = () => setShow(true);
+  const cerrarModalCurso = () => setShow(false);
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -54,6 +64,23 @@ export default function MenuAppBar() {
           </Typography>
           {auth && (
             <div>
+              <Button variant = "primary" onClick = { abrirModalCurso }>
+                Crear curso
+              </Button>
+              <Modal show={show} onHide={ cerrarModalCurso }>
+                <Modal.Header closeButton>
+                  <Modal.Title>Nuevo curso</Modal.Title>
+                </Modal.Header>
+                <Modal.Body><CrearCursos /></Modal.Body>
+                <Modal.Footer>
+                  <Button variant = "secondary" onClick = { cerrarModalCurso }>
+                    Guardar
+                  </Button>
+                  <Button variant = "primary" onClick = { cerrarModalCurso }>
+                    Cerrar
+                  </Button>
+                </Modal.Footer>
+              </Modal>
               <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"

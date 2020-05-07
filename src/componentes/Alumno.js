@@ -12,7 +12,6 @@ export default function Alumno(props) {
     const [asistencia, setAsistencia] = useState(props.alumno.asistencia);
 
     function agregarAsistencia() {
-        
         if (!asistencia) {
             var asistenciaNueva = {
                 fechaDeAsistencia : "2020-08-10T15:50:05",
@@ -26,25 +25,25 @@ export default function Alumno(props) {
             var index = location.asistenciasAEliminar.indexOf(props.alumno.id);
 
             location.asistenciasAEliminar = location.asistenciasAEliminar.filter(function( asist ) {
-                return asist.alumnoId != props.alumno.id;
+                return asist.alumnoId !== props.alumno.id;
             });
 
         } else {
             //var index = asistencias.indexOf(props.alumno.id);
             location.asistencias = location.asistencias.filter(function( asist ) {
                 console.log('filter');
-                return asist.alumnoId != props.alumno.id;
+                return asist.alumnoId !== props.alumno.id;
             });
-            console.log(location.asistencias.length); 
+            console.log(location.asistencias.length);
             //asistencias.splice(index, 1);
             setAsistencia(null);
 
             if(props.alumno.asistencia) {
                 location.asistenciasAEliminar.push(props.alumno.asistencia);
-            }           
+            }
         }
         console.log('a eliminar');
-        console.log(location.asistenciasAEliminar.length);      
+        console.log(location.asistenciasAEliminar.length);
     }
 
     const estilos = () => {

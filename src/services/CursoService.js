@@ -28,7 +28,7 @@ export const CursosService = {
 
         if (!asistenciasAEliminar) return;
 
-        let response = await fetch("http://localhost:8080/asistencias" , {
+        let response = await fetch("http://localhost:8080/asistencias", {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -37,5 +37,22 @@ export const CursosService = {
             body: JSON.stringify(asistenciasAEliminar)
         })
         console.log('res ' + response);
+    },
+
+    crearCurso : async (nuevoCurso) => {
+
+        if (!nuevoCurso) return;
+
+        let response = await fetch("http://localhost:8080/cursos/", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(nuevoCurso)
+        })
+        console.log('res ' + response);
+        return response;
+
     }
 }
