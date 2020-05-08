@@ -13,8 +13,8 @@ export default function Curso(props) {
     function seleccionarCurso() {
         history.push({
             pathname : '/alumnos',
-            alumnos : props.curso.alumnos,
             asistencias : [],
+            fecha : new Date(),
             asistenciasAEliminar : [],
             cursoId : props.curso.id
         });

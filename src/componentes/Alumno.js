@@ -14,7 +14,7 @@ export default function Alumno(props) {
     function agregarAsistencia() {
         if (!asistencia) {
             var asistenciaNueva = {
-                fechaDeAsistencia : new Date(),
+                fechaDeAsistencia : location.fecha,
                 alumnoId: props.alumno.id,
                 curso_id: location.cursoId
             }
@@ -47,7 +47,6 @@ export default function Alumno(props) {
     }
 
     const estilos = () => {
-        console.log(asistencia);
         return { background : asistencia ? '#80cbc4' : ''}
     }
 
