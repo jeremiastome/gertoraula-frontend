@@ -15,7 +15,7 @@ export default function Alumno(props) {
         
         if (!asistencia) {
             var asistenciaNueva = {
-                fechaDeAsistencia : "2020-08-10T15:50:05",
+                fechaDeAsistencia : new Date(),
                 alumnoId: props.alumno.id,
                 curso_id: location.cursoId
             }
