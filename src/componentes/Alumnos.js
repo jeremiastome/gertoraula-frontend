@@ -14,11 +14,11 @@ export default function Alumnos() {
     const location = useLocation();
     const [open, setOpen] = React.useState(false);
 
-    function guardarAsistencias() {        
+    function guardarAsistencias() {
         CursosService.guardarAsistencias(location.cursoId, location.asistencias).then(response => {
             CursosService.eliminarAsistencias(location.asistenciasAEliminar);
-            setOpen(true);            
-        });      
+            setOpen(true);
+        });
     }
 
     function Alert(props) {
