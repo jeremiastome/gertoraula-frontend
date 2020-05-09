@@ -53,6 +53,5 @@ export const CursosService = {
         })
         console.log('res ' + response);
         return response;
-
     }
 }
