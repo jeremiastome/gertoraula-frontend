@@ -8,14 +8,6 @@ export const CursosService = {
         return cursosList;
     },
 
-    getAlumnos : async (cursoId, fecha)  => {
-        let response = await fetch("http://localhost:8080/alumnos/"+cursoId+"?fecha="+fecha );
-        let alumnosList = await response.json();
-        console.log('alumnos '+ cursoId)
-        console.log(JSON.stringify(alumnosList));
-        return alumnosList;
-    },
-
     guardarAsistencias : async (id, asistenciasCurso) => {
 
         if (!asistenciasCurso || !id) return;
@@ -27,6 +19,22 @@ export const CursosService = {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(asistenciasCurso)
+        })
+        console.log('res ' + response);
+        return response;
+    },
+
+    agregarAlumnos: async (id, alumnos) => {
+
+        if (!alumnos || !id) return;
+
+        let response = await fetch("http://localhost:8080/cursosAlumnos/" + id, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(alumnos)
         })
         console.log('res ' + response);
         return response;

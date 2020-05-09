@@ -5,22 +5,22 @@ import {
   Button,
   Card
 } from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
+import { makeStyles } from '@material-ui/core/styles';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MuiAlert from '@material-ui/lab/Alert';
 import Alumno from './Alumno';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { CursosService } from '../services/CursoService';
-import { useHistory } from 'react-router-dom';
+import { AlumnoService } from '../services/AlumnoService';
 import BlockUi from 'react-block-ui';
 import 'react-block-ui/style.css';
 
 const useStyles = makeStyles({
     root: {
-      minWidth: 500,
-      maxWidth: 500
+      minWidth: 600,
+      maxWidth: 600
     },
     bullet: {
       display: 'inline-block',
@@ -49,7 +49,9 @@ function Alumnos() {
     useEffect(() => {
         console.log('use effect');
         setAlumnos([]);
-        CursosService.getAlumnos(location.cursoId, fecha.getTime()).then(data => {            
+        AlumnoService.getAlumnos(location.cursoId, fecha.getTime()).then(data => {    
+            console.log('alumnos');
+                console.log(JSON.stringify(data));        
                 setAlumnos(data)
                 setBlocking(false)
             }
@@ -77,12 +79,23 @@ function Alumnos() {
         setFecha(date);
     };
 
+    const registrarAlumno = () => {
+        history.push({
+            pathname : '/alumnos',
+            cursoId : location.cursoId
+        });
+    };
+
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
         setOpen(false);
     };    
+
+    function atras() {
+        history.push({ pathname : '/' });
+    }
 
     return(
         <BlockUi tag="div" blocking={blocking}>
@@ -103,8 +116,11 @@ function Alumnos() {
                         </h1>                
                     </div>
                     <Grid container justify="flex-end">
+                        <Button variant = "primary" onClick = { registrarAlumno }>
+                            Registrar alumno
+                        </Button>
                         <div style={{ marginTop: 10 }}>
-                            <h2 >Fecha: </h2> 
+                            <h3 >Fecha: </h3> 
                         </div>
                         <div style={{ marginBottom: 10, paddingLeft: 5 }}>                        
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -113,7 +129,7 @@ function Alumnos() {
                                     id="date-picker-dialog"
                                     label=""
                                     value={fecha}
-                                    format="dd/MM/yyyy"
+                                    format="MM/dd/yyyy"
                                     onChange={handleDateChange}
                                     KeyboardButtonProps={{
                                         'aria-label': 'change date',
@@ -131,7 +147,7 @@ function Alumnos() {
                     </div>
                     <div style={{ paddingTop: 20, float: "right" }}>
                         <Button variant = "contained" color = "primary" onClick = {() => { guardarAsistencias(location.cursoId) }}> Guardar </Button>
-                        <Button variant = "contained" onClick = {() => { history.goBack() }}  style={{ marginLeft: 5}}> Atras </Button>
+                        <Button variant = "contained" onClick = {atras}  style={{ marginLeft: 5}}> Atras </Button>
                     </div>
                 
                 </Card>

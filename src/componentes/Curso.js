@@ -6,13 +6,14 @@ import {
 } from "@material-ui/core";
 import { useHistory } from 'react-router-dom';
 
+
 export default function Curso(props) {
 
     const history = useHistory();
 
     function seleccionarCurso() {
         history.push({
-            pathname : '/alumnos',
+            pathname : '/curso',
             asistencias : [],
             fecha : new Date(),
             asistenciasAEliminar : [],
