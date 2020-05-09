@@ -72,9 +72,6 @@ function Alumnos() {
     }
 
     const handleDateChange = (date) => {
-        console.log('Cambio fecha');
-        console.log(new Date());
-        console.log(date);
         setBlocking(true);
         location.fecha = date;
         setFecha(date);
@@ -111,17 +108,17 @@ function Alumnos() {
                         </div>
                         <div style={{ marginBottom: 10, paddingLeft: 5 }}>                        
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                            <KeyboardDatePicker
-                                margin="normal"
-                                id="date-picker-dialog"
-                                label=""
-                                value={fecha}
-                                format="MM/dd/yyyy"
-                                onChange={handleDateChange}
-                                KeyboardButtonProps={{
-                                    'aria-label': 'change date',
-                                }}
-                                />
+                                <KeyboardDatePicker
+                                    margin="normal"
+                                    id="date-picker-dialog"
+                                    label=""
+                                    value={fecha}
+                                    format="dd/MM/yyyy"
+                                    onChange={handleDateChange}
+                                    KeyboardButtonProps={{
+                                        'aria-label': 'change date',
+                                    }}
+                                    />
                             </MuiPickersUtilsProvider>
                         </div>
                     </Grid>
