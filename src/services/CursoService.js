@@ -8,6 +8,14 @@ export const CursosService = {
         return cursosList;
     },
 
+    getAlumnos : async (cursoId, fecha)  => {
+        let response = await fetch("http://localhost:8080/alumnos/"+cursoId+"?fecha="+fecha );
+        let alumnosList = await response.json();
+        console.log('alumnos '+ cursoId)
+        console.log(JSON.stringify(alumnosList));
+        return alumnosList;
+    },
+
     guardarAsistencias : async (id, asistenciasCurso) => {
 
         if (!asistenciasCurso || !id) return;
