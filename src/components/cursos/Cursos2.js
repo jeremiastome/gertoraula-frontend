@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from "react";
 import Curso from './Curso';
 import CrearCursoModal from './CrearCursoModal';
-import { CursosService } from '../services/CursoService';
+import { CursoService } from '../services/CursoService';
 import { makeStyles } from '@material-ui/core/styles';
 import BlockUi from 'react-block-ui';
 
@@ -38,7 +38,7 @@ export default function Cursos() {
     useEffect(() => {
         setBlocking(true);
         setListaDeCursos([]);
-        CursosService.getCursos().then(data => { 
+        CursoService.getCursos().then(data => { 
             setListaDeCursos(data)
             setBlocking(false);
         });

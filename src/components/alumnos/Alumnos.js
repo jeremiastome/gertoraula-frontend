@@ -4,7 +4,7 @@ import { Container, Row, Col, Button } from "shards-react";
 import PageTitle from "../common/PageTitle";
 import Alumno from "./Alumno"
 import { Card, CardHeader } from "shards-react";
-import { CursosService } from '../../services/CursoService';
+import { CursoService } from '../../services/CursoService';
 import { AlumnoService } from '../../services/AlumnoService';
 
 export default function Cursos() { 
@@ -33,8 +33,8 @@ export default function Cursos() {
 
   function guardarAsistencias() {
       setBlocking(true);
-      CursosService.guardarAsistencias(location.cursoId, location.asistencias).then(response => {
-          CursosService.eliminarAsistencias(location.asistenciasAEliminar);
+      CursoService.guardarAsistencias(location.cursoId, location.asistencias).then(response => {
+          CursoService.eliminarAsistencias(location.asistenciasAEliminar);
           setOpen(true);
           setFecha(fecha);
           setBlocking(false);
