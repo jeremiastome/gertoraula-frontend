@@ -58,8 +58,8 @@ export default function Cursos() {
           <Col lg="8" md="6" sm="12" className="col-lg mb-4">
             <Card>
               <CardHeader className="border-bottom">
-                <h6 className="m-0">Alumnos</h6>
-                <Button theme="accent">Guardar asistencias</Button>
+              <Col lg="8" md="6" sm="12"><h6 className="m-0">Alumnos</h6></Col>
+              <Col lg="4" md="6" sm="12"><Button theme="accent">Guardar asistencias</Button></Col>
               </CardHeader>
               <br/>
                 {alumnos.map((alumno, idx) => (
