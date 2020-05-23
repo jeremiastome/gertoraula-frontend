@@ -9,11 +9,11 @@ import Cursos from "./components/cursos/Cursos";
 import Alumnos from "./components/alumnos/Alumnos";
 import BuscadorDeAlumnos from "./components/alumnos/BuscadorDeAlumnos";
 import UserProfileLite from "./views/UserProfileLite";
-import AddNewPost from "./views/AddNewPost";
+import CrearAlumnoView from "./views/CrearAlumnoView";
 import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
-import BlogPosts from "./views/BlogPosts";
+import CrearCursoView from "./views/CrearCursoView";
 import Profile from "./components/Profile";
 import SignInSide from "./views/SignInSide";
 
@@ -70,9 +70,9 @@ export default [
     component: UserProfileLite
   },
   {
-    path: "/add-new-post",
+    path: "/nuevoAlumno",
     layout: DefaultLayout,
-    component: AddNewPost
+    component: CrearAlumnoView
   },
   {
     path: "/errors",
@@ -90,9 +90,9 @@ export default [
     component: Tables
   },
   {
-    path: "/blog-posts",
+    path: "/nuevoCurso",
     layout: DefaultLayout,
-    component: BlogPosts
+    component: CrearCursoView
   },
   {
     path: "/registrarAlumno",

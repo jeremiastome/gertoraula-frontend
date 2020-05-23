@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Container, Row, Col } from "shards-react";
 import PageTitle from "../common/PageTitle";
 import SmallStats from "../common/SmallStats";
-import { CursosService } from '../../services/CursoService';
+import { CursoService } from '../../services/CursoService';
 
 export default function Cursos() { 
   const attrs = { md: "6", sm: "6" };
@@ -15,7 +15,7 @@ export default function Cursos() {
   useEffect(() => {
     setBlocking(true);
     setListaDeCursos([]);
-    CursosService.getCursos().then(data => { 
+    CursoService.getCursos().then(data => { 
         setListaDeCursos(data)
         setBlocking(false);
     });

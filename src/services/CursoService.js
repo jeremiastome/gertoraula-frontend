@@ -1,4 +1,4 @@
-export const CursosService = {
+export const CursoService = {
 
     getCursos : async ()  => {
         let response = await fetch("http://localhost:8080/cursos");

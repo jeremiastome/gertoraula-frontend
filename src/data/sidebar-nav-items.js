@@ -7,16 +7,16 @@ export default function() {
       htmlAfter: ""
     },
     {
-      title: "Blog Posts",
+      title: "Nuevo curso",
       htmlBefore: '<i class="material-icons">vertical_split</i>',
-      to: "/blog-posts",
+      to: "/nuevoCurso",
     },
     {
-      title: "Add New Post",
+      title: "Nuevo alumno",
       htmlBefore: '<i class="material-icons">class</i>',
-      to: "/add-new-post",
-    },
-    {
+      to: "/nuevoAlumno",
+    }
+    /*{
       title: "Forms & Components",
       htmlBefore: '<i class="material-icons">view_module</i>',
       to: "/components-overview",
@@ -35,6 +35,6 @@ export default function() {
       title: "Errors",
       htmlBefore: '<i class="material-icons">error</i>',
       to: "/errors",
-    }
+    }*/
   ];
 }

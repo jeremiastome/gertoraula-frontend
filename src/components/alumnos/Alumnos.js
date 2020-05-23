@@ -37,8 +37,8 @@ export default function Cursos() {
 
   function guardarAsistencias() {
       setBlocking(true);
-      CursosService.guardarAsistencias(location.cursoId, location.asistencias).then(response => {
-          CursosService.eliminarAsistencias(location.asistenciasAEliminar);
+      CursoService.guardarAsistencias(location.cursoId, location.asistencias).then(response => {
+          CursoService.eliminarAsistencias(location.asistenciasAEliminar);
           setOpen(true);
           setFecha(fecha);
           setBlocking(false);
