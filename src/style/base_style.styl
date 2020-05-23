@@ -1,0 +1,56 @@
+.calendar
+  border-radius 5px
+  padding 30px
+
+  &-month
+    width 300px
+    user-select none
+
+    &_header
+      display flex
+      justify-content space-between
+      margin-bottom 30px
+
+  &-week,
+  &-days_of_week
+    display flex
+    justify-content space-between
+
+  &-week-day,
+  &-days_of_week_day
+    display inline-block
+    width 40px
+    text-align center
+    line-height 30px
+    opacity .5
+
+  &-week-day
+    margin 0
+    padding 0
+    background none
+    border none
+
+    &.is-selectable
+      cursor pointer
+
+    &.is-disabled
+      background #f5f5f5
+
+    &.is-current_month
+      opacity 1
+
+    &.is-selected
+      background green
+
+      &.is-start_selection
+        background red
+
+      &.is-end_selection
+        background blue
+
+  &-header_button
+    &.is-prev:before
+      content '<'
+
+    &.is-next:before
+      content '>'

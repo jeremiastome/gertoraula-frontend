@@ -7,6 +7,7 @@ import { DefaultLayout, LoginLayout } from "./layouts";
 // Route Views
 import Cursos from "./components/cursos/Cursos";
 import Alumnos from "./components/alumnos/Alumnos";
+import BuscadorDeAlumnos from "./components/alumnos/BuscadorDeAlumnos";
 import UserProfileLite from "./views/UserProfileLite";
 import AddNewPost from "./views/AddNewPost";
 import Errors from "./views/Errors";
@@ -92,6 +93,11 @@ export default [
     path: "/blog-posts",
     layout: DefaultLayout,
     component: BlogPosts
+  },
+  {
+    path: "/registrarAlumno",
+    layout: DefaultLayout,
+    component: BuscadorDeAlumnos
   },
   {
     path: "/perfil",

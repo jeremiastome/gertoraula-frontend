@@ -142,7 +142,7 @@ class SmallStats extends React.Component {
     return (
       
       <div style={linkStyle} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} >
-        <Card onClick = { () => { select(elemid) } } small className={cardClasses}>
+        <Card onClick = { () => { select(elemid, value) } } small className={cardClasses}>
 
           <CardBody className={cardBodyClasses}>
             <div className={innerWrapperClasses}>
@@ -150,9 +150,6 @@ class SmallStats extends React.Component {
                 <span className={labelClasses}>{label}</span>
                 <h6 className={valueClasses}>{value}</h6>
               </div>
-              {/*<div className={innerDataFieldClasses}>
-                <span className={percentageClasses}>{percentage}</span>
-              </div>*/}
             </div>
             <canvas
               height={canvasHeight}

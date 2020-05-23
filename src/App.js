@@ -5,6 +5,9 @@ import routes from "./routes";
 import withTracker from "./withTracker";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import './style/base_style.styl'
+import './style/date_picker.styl'
+import 'react-notifications/lib/notifications.css';
 import "./shards-dashboard/styles/shards-dashboards.1.1.0.min.css";
 import { useAuth0 } from "./react-auth0-spa";
 import Profile from "./components/Profile";

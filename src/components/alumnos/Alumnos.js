@@ -3,9 +3,13 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { Container, Row, Col, Button } from "shards-react";
 import PageTitle from "../common/PageTitle";
 import Alumno from "./Alumno"
-import { Card, CardHeader } from "shards-react";
+import classNames from "classnames";
+import { Card, CardHeader, CardBody, ListGroupItem,Alert } from "shards-react";
 import { CursosService } from '../../services/CursoService';
 import { AlumnoService } from '../../services/AlumnoService';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import Calendar from 'react-calendar'
+import 'react-calendar/dist/Calendar.css';
 
 export default function Cursos() { 
   const attrs = { md: "6", sm: "6" };
@@ -38,9 +42,37 @@ export default function Cursos() {
           setOpen(true);
           setFecha(fecha);
           setBlocking(false);
+          NotificationManager.success('Se has guardado las asistencias!', '', 3000);
       });
   }
 
+  const registrarAlumno = () => {
+    history.push({
+        pathname : '/registrarAlumno',
+        cursoId : location.cursoId,
+        cursoName : location.cursoName
+    });
+  };
+
+  const cardBodyClasses = classNames(
+    "1" === "1" ? "p-0 d-flex" : "px-0 pb-0"
+  );
+
+  const valueClasses = classNames(
+      "stats-small__value",
+      "count",
+      "1" === "1" ? "my-3" : "m-0"
+  );
+
+  const innerWrapperClasses = classNames(
+      "d-flex",
+      "1" === "1" ? "flex-column m-auto" : "px-3"
+  );
+
+    const dataFieldClasses = classNames(
+      "stats-small__data",
+      "1" === "1" && "text-center"
+  );
 
   function atras() {
       history.push({ pathname : '/' });
@@ -48,9 +80,10 @@ export default function Cursos() {
 
   return ( 
       <Container fluid className="main-content-container px-4">
-        {/* Page Header */}
+        <NotificationContainer/>
+
         <Row noGutters className="page-header py-4">
-          <PageTitle title="Curso " className="text-sm-left mb-3" />
+          <PageTitle title={"Curso " + location.cursoName} className="text-lg-left mb-6" />
         </Row>
 
         {/* Small Stats Blocks */}
@@ -58,8 +91,10 @@ export default function Cursos() {
           <Col lg="8" md="6" sm="12" className="col-lg mb-4">
             <Card>
               <CardHeader className="border-bottom">
-              <Col lg="8" md="6" sm="12"><h6 className="m-0">Alumnos</h6></Col>
-              <Col lg="4" md="6" sm="12"><Button theme="accent">Guardar asistencias</Button></Col>
+                <ListGroupItem className="d-flex px-3 border-0">
+                  <h4 className="m-0">Alumnos</h4>
+                  <Button theme="info" size="lg" className="ml-auto" onClick = { guardarAsistencias } >Guardar asistencias</Button>
+                </ListGroupItem>
               </CardHeader>
               <br/>
                 {alumnos.map((alumno, idx) => (
@@ -76,7 +111,36 @@ export default function Cursos() {
             </Card>
           </Col>
           <Col lg="4" md="6" sm="12" className="col-lg mb-4">
-
+               <Card>
+                <CardHeader className="border-bottom">
+                  <ListGroupItem className="d-flex px-3 border-0">
+                    <h4 className="m-0">Asistencias por fecha</h4>                    
+                  </ListGroupItem>
+                </CardHeader><br/>                
+                <CardBody className={cardBodyClasses}>
+                  <div className={innerWrapperClasses}>
+                        <Calendar
+                            onChange={setFecha}
+                            value={fecha}
+                         />
+                         <br/>
+                    </div>
+                </CardBody>
+              </Card><br/>
+              <Card>
+                <CardHeader className="border-bottom">
+                  <ListGroupItem className="d-flex px-3 border-0">
+                    <h4 className="m-0">Gestionar curso</h4>                    
+                  </ListGroupItem>
+                </CardHeader><br/>
+                <CardBody className={cardBodyClasses}>
+                    <div className={innerWrapperClasses}>
+                        <Button theme="info" size="lg" className="ml-auto" onClick = { registrarAlumno } >Registrar alumno</Button>
+                        <br/>
+                    </div>
+                </CardBody>
+              </Card> 
+                         
           </Col>
         </Row>
       </Container>

@@ -28,7 +28,7 @@ export const CursosService = {
 
         if (!alumnos || !id) return;
 
-        let response = await fetch("http://localhost:8080/git /" + id, {
+        let response = await fetch("http://localhost:8080/cursosAlumnos/" + id, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
