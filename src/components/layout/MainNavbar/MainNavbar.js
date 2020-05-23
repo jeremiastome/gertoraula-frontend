@@ -6,8 +6,10 @@ import { Container, Navbar } from "shards-react";
 import NavbarSearch from "./NavbarSearch";
 import NavbarNav from "./NavbarNav/NavbarNav";
 import NavbarToggle from "./NavbarToggle";
+import { useAuth0 } from "./../../../react-auth0-spa";
 
 const MainNavbar = ({ layout, stickyTop }) => {
+  const { logout, user } = useAuth0();
   const classes = classNames(
     "main-navbar",
     "bg-white",
@@ -19,7 +21,7 @@ const MainNavbar = ({ layout, stickyTop }) => {
       <Container className="p-0">
         <Navbar type="light" className="align-items-stretch flex-md-nowrap p-0">
           {/*<NavbarSearch />*/}
-          <NavbarNav />
+          <NavbarNav logout = {logout} user = {user}/>
           {/*<NavbarToggle />*/}
         </Navbar>
       </Container>
