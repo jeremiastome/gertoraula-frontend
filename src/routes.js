@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 
 // Layout Types
-import { DefaultLayout } from "./layouts";
+import { DefaultLayout, LoginLayout } from "./layouts";
 
 // Route Views
 import Cursos from "./components/cursos/Cursos";
@@ -13,18 +13,50 @@ import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
+import Profile from "./components/Profile";
+import SignInSide from "./views/SignInSide";
+
 
 export default [
   {
     path: "/",
     exact: true,
     layout: DefaultLayout,
-    component: () => <Redirect to="/cursos" />
+    component: (user) => {
+      if(Object.keys(user).length === 0) {
+        console.log(user);
+        return(
+          <Redirect to="/auth" />
+        )
+      }
+      else {
+        return(
+          <Redirect to="/cursos" />
+        )
+      }
+    }
+  },
+  {
+    path: "/auth",
+    layout: LoginLayout,
+    component: SignInSide
   },
   {
     path: "/cursos",
     layout: DefaultLayout,
-    component: Cursos
+    component: (user) => {
+      if(Object.keys(user).length === 0) {
+        console.log(user);
+        return(
+          <Redirect to="/auth" />
+        )
+      }
+      else {
+        return(
+          <Cursos />
+        )
+      }
+    }
   },
   {
     path: "/curso",
@@ -60,5 +92,10 @@ export default [
     path: "/blog-posts",
     layout: DefaultLayout,
     component: BlogPosts
+  },
+  {
+    path: "/perfil",
+    layout: DefaultLayout,
+    component: Profile
   }
 ];
