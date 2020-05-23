@@ -1,32 +1,36 @@
 import React,{useState, useEffect}  from "react";
-import PropTypes from "prop-types";
+import { useHistory } from 'react-router-dom';
 import { Container, Row, Col } from "shards-react";
-
 import PageTitle from "../common/PageTitle";
 import SmallStats from "../common/SmallStats";
-import UsersOverview from "../blog/UsersOverview";
-import UsersByDevice from "../blog/UsersByDevice";
-import NewDraft from "../blog/NewDraft";
-import Discussions from "../blog/Discussions";
-import TopReferrals from "../common/TopReferrals";
 import { CursosService } from '../../services/CursoService';
-
-
 
 export default function Cursos() { 
   const attrs = { md: "6", sm: "6" };
   const [listaDeCursos, setListaDeCursos] = useState([]);
   const [update, setUpdate] = useState(null);
   const [blocking, setBlocking] = useState(true);
-    useEffect(() => {
-      setBlocking(true);
-      setListaDeCursos([]);
-      CursosService.getCursos().then(data => { 
-          setListaDeCursos(data)
-          setBlocking(false);
-      });
-    }, [update]);
+  const history = useHistory();
 
+  useEffect(() => {
+    setBlocking(true);
+    setListaDeCursos([]);
+    CursosService.getCursos().then(data => { 
+        setListaDeCursos(data)
+        setBlocking(false);
+    });
+  }, [update]);
+
+  function seleccionarCurso(cursoId) {
+      console.log(cursoId)
+      history.push({
+          pathname : '/curso',
+          asistencias : [],
+          fecha : new Date(),
+          asistenciasAEliminar : [],
+          cursoId : cursoId,
+      });
+  }
   return (    
 
       <Container fluid className="main-content-container px-4">
@@ -46,6 +50,8 @@ export default function Cursos() {
                 chartLabels={stats.chartLabels}
                 label={stats.label}*/
                 value={curso.nombre}
+                select={seleccionarCurso}
+                elemid={curso.id}
                 /*percentage={stats.percentage}
                 increase={stats.increase}
                 decrease={stats.decrease}*/

@@ -9,11 +9,17 @@ import Chart from "../../utils/chart";
 class SmallStats extends React.Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      hover: false
+    }
     this.canvasRef = React.createRef();
   }
 
-  componentDidMount() {
+  toggleHover =() => {
+    this.setState({hover: !this.state.hover})
+  }
+
+  componentDidMount() {    
     const chartOptions = {
       ...{
         maintainAspectRatio: true,
@@ -60,6 +66,7 @@ class SmallStats extends React.Component {
       ...this.props.chartOptions
     };
 
+  
     const chartConfig = {
       ...{
         type: "line",
@@ -80,7 +87,14 @@ class SmallStats extends React.Component {
   }
 
   render() {
-    const { variation, label, value, percentage, increase } = this.props;
+    const { variation, label, value, percentage, increase, select, elemid } = this.props;
+
+    var linkStyle;
+    if (this.state.hover) {
+      linkStyle = {color: '#ed1212',cursor: 'pointer'}
+    } else {
+      linkStyle = {color: '#000'}
+    }
 
     const cardClasses = classNames(
       "stats-small",
@@ -123,27 +137,31 @@ class SmallStats extends React.Component {
       `stats-small__percentage--${increase ? "increase" : "decrease"}`
     );
 
-    const canvasHeight = variation === "1" ? 120 : 60;
+    const canvasHeight = variation === "1" ? 0 : 0;
 
     return (
-      <Card small className={cardClasses}>
-        <CardBody className={cardBodyClasses}>
-          <div className={innerWrapperClasses}>
-            <div className={dataFieldClasses}>
-              <span className={labelClasses}>{label}</span>
-              <h6 className={valueClasses}>{value}</h6>
+      
+      <div style={linkStyle} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} >
+        <Card onClick = { () => { select(elemid) } } small className={cardClasses}>
+
+          <CardBody className={cardBodyClasses}>
+            <div className={innerWrapperClasses}>
+              <div className={dataFieldClasses}>
+                <span className={labelClasses}>{label}</span>
+                <h6 className={valueClasses}>{value}</h6>
+              </div>
+              {/*<div className={innerDataFieldClasses}>
+                <span className={percentageClasses}>{percentage}</span>
+              </div>*/}
             </div>
-            <div className={innerDataFieldClasses}>
-              <span className={percentageClasses}>{percentage}</span>
-            </div>
-          </div>
-          <canvas
-            height={canvasHeight}
-            ref={this.canvasRef}
-            className={`stats-small-${shortid()}`}
-          />
-        </CardBody>
-      </Card>
+            <canvas
+              height={canvasHeight}
+              ref={this.canvasRef}
+              className={`stats-small-${shortid()}`}
+            />
+          </CardBody>
+        </Card>
+      </div>
     );
   }
 }
@@ -189,9 +207,9 @@ SmallStats.propTypes = {
 
 SmallStats.defaultProps = {
   increase: true,
-  percentage: 0,
-  value: 0,
-  label: "Label",
+  percentage: null,
+  value: null,
+  label: "",
   chartOptions: Object.create(null),
   chartConfig: Object.create(null),
   chartData: [],

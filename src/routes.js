@@ -6,6 +6,7 @@ import { DefaultLayout } from "./layouts";
 
 // Route Views
 import Cursos from "./components/cursos/Cursos";
+import Alumnos from "./components/alumnos/Alumnos";
 import UserProfileLite from "./views/UserProfileLite";
 import AddNewPost from "./views/AddNewPost";
 import Errors from "./views/Errors";
@@ -24,6 +25,11 @@ export default [
     path: "/cursos",
     layout: DefaultLayout,
     component: Cursos
+  },
+  {
+    path: "/curso",
+    layout: DefaultLayout,
+    component: Alumnos
   },
   {
     path: "/user-profile-lite",
