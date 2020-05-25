@@ -56,9 +56,10 @@ export const CursoService = {
     },
 
     crearCurso : async (nuevoCurso) => {
-
+        console.log('Crear curso ' + nuevoCurso)
         if (!nuevoCurso) return;
 
+        console.log('Crear curso ' + nuevoCurso)
         let response = await fetch("http://localhost:8080/cursos/", {
             method: 'POST',
             headers: {

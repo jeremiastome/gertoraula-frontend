@@ -23,7 +23,7 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
-import { CursosService } from '../../services/CursoService';
+import { CursoService } from '../../services/CursoService';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 
@@ -80,7 +80,9 @@ export default function BuscadorDeAlumnos() {
             asistencias : [],
             fecha : new Date(),
             asistenciasAEliminar : [],
-            cursoId : location.cursoId
+            cursoId : location.cursoId,
+            cursoName : location.cursoName
+
         });
     }
 
@@ -89,9 +91,9 @@ export default function BuscadorDeAlumnos() {
     }
 
     function registrar() {
-        CursosService.agregarAlumnos(location.cursoId, alumnos).then(
+        CursoService.agregarAlumnos(location.cursoId, alumnos).then(
             (res) => {
-                NotificationManager.success('Se registraron los alumnos correctamente!', '', 3000);
+                //NotificationManager.success('Se registraron los alumnos correctamente!', '', 2000);
                 atras()
             }
         )

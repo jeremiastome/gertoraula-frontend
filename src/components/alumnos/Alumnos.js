@@ -5,7 +5,7 @@ import PageTitle from "../common/PageTitle";
 import Alumno from "./Alumno"
 import classNames from "classnames";
 import { Card, CardHeader, CardBody, ListGroupItem,Alert } from "shards-react";
-import { CursosService } from '../../services/CursoService';
+import { CursoService } from '../../services/CursoService';
 import { AlumnoService } from '../../services/AlumnoService';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import Calendar from 'react-calendar'
@@ -21,8 +21,9 @@ export default function Cursos() {
   const [blocking, setBlocking] = useState(true);
 
   useEffect(() => {
-    console.log('use effect');
+    console.log('use effect ' + fecha);
     setAlumnos([]);
+    location.asistenciasAEliminar = [];
     AlumnoService.getAlumnos(location.cursoId, fecha.getTime()).then(data => {    
         console.log('alumnos');
         if(data) {
@@ -42,7 +43,9 @@ export default function Cursos() {
           setOpen(true);
           setFecha(fecha);
           setBlocking(false);
-          NotificationManager.success('Se has guardado las asistencias!', '', 3000);
+          location.asistencias = [];
+          location.asistenciasAEliminar = [];
+          NotificationManager.success('Se has guardado las asistencias!', '', 2000);
       });
   }
 
@@ -52,6 +55,11 @@ export default function Cursos() {
         cursoId : location.cursoId,
         cursoName : location.cursoName
     });
+  };
+
+  const guardarFecha = (date) => {
+      location.fecha = date;
+      setFecha(date);
   };
 
   const cardBodyClasses = classNames(
@@ -69,10 +77,12 @@ export default function Cursos() {
       "1" === "1" ? "flex-column m-auto" : "px-3"
   );
 
-    const dataFieldClasses = classNames(
-      "stats-small__data",
-      "1" === "1" && "text-center"
-  );
+  const dataFieldClasses = () => {
+      return { 
+        borderRadius: '0.5rem',
+        boxShadow: '0 0.46875rem 2.1875rem rgba(90,97,105,.1), 0 0.9375rem 1.40625rem rgba(90,97,105,.1), 0 0.25rem 0.53125rem rgba(90,97,105,.12),0 0.125rem 0.1875rem rgba(90,97,105,.1);'
+      }
+  }
 
   function atras() {
       history.push({ pathname : '/' });
@@ -119,8 +129,8 @@ export default function Cursos() {
                 </CardHeader><br/>                
                 <CardBody className={cardBodyClasses}>
                   <div className={innerWrapperClasses}>
-                        <Calendar
-                            onChange={setFecha}
+                        <Calendar style={dataFieldClasses()}
+                            onChange={guardarFecha}
                             value={fecha}
                          />
                          <br/>

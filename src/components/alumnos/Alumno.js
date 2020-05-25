@@ -30,7 +30,9 @@ export default function Alumno(props) {
                 location.asistencias.push(asistenciaNueva);
             }
             var index = location.asistenciasAEliminar.indexOf(props.alumno.id);
-
+            console.log('asistencias');
+            console.log(location.asistencias.length);
+            console.log(location.asistencias);
             location.asistenciasAEliminar = location.asistenciasAEliminar.filter(function( asist ) {
                 return asist.alumnoId !== props.alumno.id;
             });
@@ -48,9 +50,11 @@ export default function Alumno(props) {
             if(props.alumno.asistencia) {
                 location.asistenciasAEliminar.push(props.alumno.asistencia);
             }
+            console.log('asis ' + props.alumno.asistencia);
         }
         console.log('a eliminar');
         console.log(location.asistenciasAEliminar.length);
+        console.log(location.asistenciasAEliminar);
     }
 
     const estilos = () => {
