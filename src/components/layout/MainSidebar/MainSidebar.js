@@ -40,7 +40,7 @@ class MainSidebar extends React.Component {
   render() {
     const classes = classNames(
       "main-sidebar",
-      "px-0",
+      "px-100",
       "col-12",
       this.state.menuVisible && "open"
     );
@@ -50,10 +50,9 @@ class MainSidebar extends React.Component {
         tag="aside"
         className={classes}
         lg={{ size: 2 }}
-        md={{ size: 3 }}
+        md={{ size: 10 }}
       >
         <SidebarMainNavbar hideLogoText={this.props.hideLogoText} />
-        <SidebarSearch />
         <SidebarNavItems />
       </Col>
     );

@@ -14,12 +14,16 @@ export const Auth0Provider = ({
 }) => {
   const [isAuthenticated, setIsAuthenticated] = useState();
   const [user, setUser] = useState();
+  const [datosDeUsuario, setDatosDeUsuario] = useState();
   const [auth0Client, setAuth0] = useState();
   const [loading, setLoading] = useState(true);
+  const [rol, setRol] = useState(null);
   const [popupOpen, setPopupOpen] = useState(false);
 
   useEffect(() => {
     const initAuth0 = async () => {
+      const rolUsuario = localStorage.getItem('rol');
+      setRol(rolUsuario);
       const auth0FromHook = await createAuth0Client(initOptions);
       setAuth0(auth0FromHook);
 
@@ -36,14 +40,25 @@ export const Auth0Provider = ({
       if (isAuthenticated) {
         const user = await auth0FromHook.getUser();
         setUser(user);
-        const prueba = await UsuarioService.usuarioExistente(user.email);
+        const existeUsuario = await UsuarioService.usuarioExistente(user.email);
         console.log(user);
-        console.log(prueba);
-        if(prueba) {
+        console.log('USUARIO');
+        console.log(rolUsuario);
+
+        const usuario =  {
+          nombre: user.given_name, 
+          apellido: user.family_name, 
+          email: user.email,
+          rol: rolUsuario
+        };
+
+        if(existeUsuario) {
             console.log("Si papa");
-            const usuario = {nombre: user.given_name, apellido: user.family_name, email: user.email};
-            UsuarioService.crearUsuario(usuario);
+            const res = await UsuarioService.crearUsuario(usuario);
+            console.log('User res');
+            console.log(JSON.stringify(res));
         }
+        setDatosDeUsuario(usuario);
       }
 
       setLoading(false);
@@ -76,6 +91,14 @@ export const Auth0Provider = ({
     setIsAuthenticated(true);
     setUser(user);
   };
+
+  const loginUser = (rol, ...p) => {
+    console.log('LOGIN');
+    console.log(rol);
+    setRol(rol);
+    auth0Client.loginWithRedirect(rol, ...p)
+  };
+
   return (
     <Auth0Context.Provider
       value={{
@@ -86,10 +109,12 @@ export const Auth0Provider = ({
         loginWithPopup,
         handleRedirectCallback,
         getIdTokenClaims: (...p) => auth0Client.getIdTokenClaims(...p),
-        loginWithRedirect: (...p) => auth0Client.loginWithRedirect(...p),
+        loginWithRedirect: (rol, ...p) => loginUser(rol, ...p),
         getTokenSilently: (...p) => auth0Client.getTokenSilently(...p),
         getTokenWithPopup: (...p) => auth0Client.getTokenWithPopup(...p),
-        logout: (...p) => auth0Client.logout(...p)
+        logout: (...p) => auth0Client.logout(...p),
+        datosDeUsuario,
+        rol
       }}
     >
       {children}

@@ -2,7 +2,7 @@ export default function() {
   return [
     {
       title: "Cursos",
-      to: "/cursos",
+      to: "/home",
       htmlBefore: '<i class="material-icons">class</i>',
       htmlAfter: ""
     },

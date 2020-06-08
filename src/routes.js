@@ -6,6 +6,7 @@ import { DefaultLayout, LoginLayout } from "./layouts";
 
 // Route Views
 import Cursos from "./components/cursos/Cursos";
+import AlumnosRegistrados from "./components/padres/AlumnosRegistrados";
 import Alumnos from "./components/alumnos/Alumnos";
 import BuscadorDeAlumnos from "./components/alumnos/BuscadorDeAlumnos";
 import UserProfileLite from "./views/UserProfileLite";
@@ -32,7 +33,7 @@ export default [
       }
       else {
         return(
-          <Redirect to="/cursos" />
+          <Redirect to="/home" />
         )
       }
     }
@@ -43,18 +44,24 @@ export default [
     component: SignInSide
   },
   {
-    path: "/cursos",
+    path: "/home",
     layout: DefaultLayout,
-    component: (user) => {
-      if(Object.keys(user).length === 0) {
-        console.log(user);
+    component: (datosDeUsuario) => {
+      if(Object.keys(datosDeUsuario).length === 0) {
+        console.log('datosDeUsuario');
+        console.log(JSON.stringify(datosDeUsuario));
         return(
           <Redirect to="/auth" />
         )
       }
-      else {
+      else if(datosDeUsuario.rol == 'docente'){
         return(
           <Cursos />
+        )
+      }
+      else {
+        return(
+          <AlumnosRegistrados />
         )
       }
     }
@@ -62,22 +69,30 @@ export default [
   {
     path: "/curso",
     layout: DefaultLayout,
-    component: Alumnos
+    component: (user) => {
+      return(<Alumnos/>)
+    }
   },
   {
     path: "/user-profile-lite",
     layout: DefaultLayout,
-    component: UserProfileLite
+    component: (user) => {
+      return(<UserProfileLite/>)
+    }
   },
   {
     path: "/nuevoAlumno",
     layout: DefaultLayout,
-    component: CrearAlumnoView
+    component: (user) => {
+      return(<CrearAlumnoView/>)
+    }
   },
   {
     path: "/errors",
     layout: DefaultLayout,
-    component: Errors
+    component: (user) => {
+      return(<Errors/>)
+    }
   },
   {
     path: "/components-overview",
@@ -92,16 +107,22 @@ export default [
   {
     path: "/nuevoCurso",
     layout: DefaultLayout,
-    component: CrearCursoView
+    component: (user) => {
+      return(<CrearCursoView/>)
+    }
   },
   {
     path: "/registrarAlumno",
     layout: DefaultLayout,
-    component: BuscadorDeAlumnos
+    component: (user) => {
+      return(<BuscadorDeAlumnos/>)
+    }
   },
   {
     path: "/perfil",
     layout: DefaultLayout,
-    component: Profile
+    component: (user) => {
+      return(<Profile/>)
+    }
   }
 ];

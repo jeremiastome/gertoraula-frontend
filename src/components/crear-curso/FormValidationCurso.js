@@ -59,6 +59,7 @@ export default function FormValidationCurso(props) {
                       </Col>
                     </Row>
                   </Col> 
+                  
                   <Button type="submit">Crear curso</Button>               
                 </Form>   
             </ListGroupItem>

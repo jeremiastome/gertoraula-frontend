@@ -16,7 +16,7 @@ import history from "./utils/history";
 export default function App() {
 
   const { loading } = useAuth0();
-  const { user } = useAuth0();
+  const { datosDeUsuario } = useAuth0();
 
 
   if (loading) {
@@ -34,7 +34,7 @@ export default function App() {
               component={withTracker(props => {
                 return (
                   <route.layout {...props}>
-                    <route.component {...user} />
+                    <route.component {...datosDeUsuario} />
                   </route.layout>
                 );
               })}

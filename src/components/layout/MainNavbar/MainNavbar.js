@@ -12,17 +12,16 @@ const MainNavbar = ({ layout, stickyTop }) => {
   const { logout, user } = useAuth0();
   const classes = classNames(
     "main-navbar",
-    "bg-white",
-    stickyTop && "sticky-top"
+    "bg-white"
   );
 
   return (
     <div className={classes}>
-      <Container className="p-0">
+      <Container className="p-1">
         <Navbar type="light" className="align-items-stretch flex-md-nowrap p-0">
           {/*<NavbarSearch />*/}
+          <div ></div>
           <NavbarNav logout = {logout} user = {user}/>
-          {/*<NavbarToggle />*/}
         </Navbar>
       </Container>
     </div>
