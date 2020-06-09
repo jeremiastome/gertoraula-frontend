@@ -17,8 +17,8 @@ export const UsuarioService = {
         return response;
     },
 
-    usuarioExistente : async (email) => {
-        let response = await fetch(url + "/usuarios/" + email);
+    usuarioExistente : async (email, rol) => {
+        let response = await fetch(url + "/usuarios/" +rol+"?email="+email);
         let nose = await response.json();
         console.log(nose);
         //let usuarioExistente = await JSON.stringify(response);

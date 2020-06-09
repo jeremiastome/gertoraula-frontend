@@ -4,6 +4,7 @@ import { Container, Row, Col } from "shards-react";
 import PageTitle from "../common/PageTitle";
 import SmallStats from "../common/SmallStats";
 import { CursoService } from '../../services/CursoService';
+import { useAuth0 } from "./../../react-auth0-spa";
 
 export default function Cursos() { 
   const attrs = { md: "6", sm: "6" };
@@ -11,11 +12,12 @@ export default function Cursos() {
   const [update, setUpdate] = useState(null);
   const [blocking, setBlocking] = useState(true);
   const history = useHistory();
+  const { datosDeUsuario } = useAuth0();
 
   useEffect(() => {
     setBlocking(true);
     setListaDeCursos([]);
-    CursoService.getCursos().then(data => { 
+    CursoService.getCursos(datosDeUsuario.email).then(data => { 
         setListaDeCursos(data)
         setBlocking(false);
     });

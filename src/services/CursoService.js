@@ -1,7 +1,7 @@
 export const CursoService = {
 
-    getCursos : async ()  => {
-        let response = await fetch("http://localhost:8080/cursos");
+    getCursos : async (email)  => {
+        let response = await fetch("http://localhost:8080/cursos/" + email);
         let cursosList = await response.json();
         console.log('cursosList ');
         console.log(cursosList);

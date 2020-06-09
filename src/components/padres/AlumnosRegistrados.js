@@ -2,8 +2,9 @@ import React,{useState, useEffect}  from "react";
 import { useHistory } from 'react-router-dom';
 import { Container, Row, Col } from "shards-react";
 import PageTitle from "../common/PageTitle";
-import SmallStats from "../common/SmallStats";
-import { CursoService } from '../../services/CursoService';
+import AlumnoItem from "./AlumnoItem";
+import { AlumnoService } from '../../services/AlumnoService';
+import { useAuth0 } from "./../../react-auth0-spa";
 
 export default function AlumnosRegistrados() { 
   const attrs = { md: "6", sm: "6" };
@@ -11,26 +12,27 @@ export default function AlumnosRegistrados() {
   const [update, setUpdate] = useState(null);
   const [blocking, setBlocking] = useState(true);
   const history = useHistory();
+  const { datosDeUsuario } = useAuth0();
 
   useEffect(() => {
     setBlocking(true);
     setAlumnosRegistrados([]);
-    /*CursoService.getCursos().then(data => { 
-        setListaDeCursos(data)
+    AlumnoService.getAlumnosByEmail(datosDeUsuario.email).then(data => { 
+        setAlumnosRegistrados(data)
         setBlocking(false);
-    });*/ //Traer alumnos
+    });
   }, [update]);
 
-  function seleccionarCurso(cursoId, cursoName) {
+  function seleccionarAlumno(cursoId, cursoName) {
       console.log(cursoId)
-      history.push({
+     /* history.push({
           pathname : '/curso',
           asistencias : [],
           fecha : new Date(),
           asistenciasAEliminar : [],
           cursoId : cursoId,
           cursoName : cursoName,
-      });
+      });*/
   }
   return (    
 
@@ -42,17 +44,17 @@ export default function AlumnosRegistrados() {
 
         {/* Small Stats Blocks */}
         <Row>
-          {/*listaDeCursos.map((curso, idx) => (
-            <Col lg="3" md="6" sm="12" className="col-lg mb-4" key={curso.id} {...attrs}>
-              <SmallStats
-                id={`small-stats-${curso.id}`}
+          {alumnosRegistrados.map((alumno, idx) => (
+            <Col lg="3" md="6" sm="12" className="col-lg mb-4" key={alumno.id} {...attrs}>
+              <AlumnoItem
+                id={`small-stats-${alumno.id}`}
                 variation="1"
-                value={curso.nombre}
-                select={seleccionarCurso}
-                elemid={curso.id}
+                value={alumno.nombre+' '+alumno.apellido}
+                select={seleccionarAlumno}
+                elemid={alumno.id}
               />
             </Col>
-          ))*/}
+          ))}
         </Row>
       </Container>
     );

@@ -28,5 +28,11 @@ export const AlumnoService = {
         let response = await fetch("http://localhost:8080/alumnosDeCurso/"+cursoId);
         let alumnosList = await response.json();
         return alumnosList;
+    },
+
+    getAlumnosByEmail : async (email)  => {
+        let response = await fetch("http://localhost:8080/alumnosRegistrados/"+email);
+        let alumnosList = await response.json();
+        return alumnosList;
     }
 }

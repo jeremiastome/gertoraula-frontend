@@ -8,14 +8,17 @@ import { useForm } from "react-hook-form";
 import { Button, Card, CardHeader, ListGroup, ListGroupItem,Row,Col } from "shards-react";
 import { CursoService } from "../../services/CursoService"
 import {NotificationContainer, NotificationManager} from 'react-notifications';
+import { useAuth0 } from "./../../react-auth0-spa";
 
 export default function FormValidationCurso(props) {
 
   const { register, handleSubmit } = useForm();
+  const { datosDeUsuario } = useAuth0();
 
   const onSubmit = data => {
     console.log('Submit');
     console.log(JSON.stringify(data));
+    data['emailDocente'] = datosDeUsuario.email;
       CursoService.crearCurso(data).then(response =>  {
           NotificationManager.success('Se registró el curso correctamente!', '', 2000);
         }

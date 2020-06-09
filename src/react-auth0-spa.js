@@ -32,18 +32,13 @@ export const Auth0Provider = ({
         const { appState } = await auth0FromHook.handleRedirectCallback();
         onRedirectCallback(appState);
       }
-
       const isAuthenticated = await auth0FromHook.isAuthenticated();
-
       setIsAuthenticated(isAuthenticated);
 
       if (isAuthenticated) {
         const user = await auth0FromHook.getUser();
         setUser(user);
-        const existeUsuario = await UsuarioService.usuarioExistente(user.email);
-        console.log(user);
-        console.log('USUARIO');
-        console.log(rolUsuario);
+        const existeUsuario = await UsuarioService.usuarioExistente(user.email, rolUsuario);        
 
         const usuario =  {
           nombre: user.given_name, 
@@ -53,7 +48,6 @@ export const Auth0Provider = ({
         };
 
         if(existeUsuario) {
-            console.log("Si papa");
             const res = await UsuarioService.crearUsuario(usuario);
             console.log('User res');
             console.log(JSON.stringify(res));
