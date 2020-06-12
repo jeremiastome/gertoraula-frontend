@@ -49,6 +49,11 @@ export default function FormValidationAlumno(props) {
                         <Input className="form-control-alternative" required innerRef={register} 
                         name="dni" type="number" placeholder="Ingrese numero de documento del alumno"/>
                     </FormGroup>
+                    <FormGroup>
+                        <label htmlFor="dniCurso">Email de contacto</label>
+                        <Input className="form-control-alternative" required innerRef={register} 
+                        name="emailContacto" type="email" placeholder="Ingrese email de contacto"/>
+                    </FormGroup>
                 </Col>
                 <br/>
                 <Button type="submit">Crear alumno</Button>
