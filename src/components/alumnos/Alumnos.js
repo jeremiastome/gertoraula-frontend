@@ -16,11 +16,18 @@ export default function Cursos() {
   const history = useHistory();
   const location = useLocation();
   const [open, setOpen] = useState(false);
+  const [block, setBlock] = useState(false);
   const [fecha, setFecha] = useState(new Date());
   const [alumnos, setAlumnos] = useState([]);
   const [blocking, setBlocking] = useState(true);
 
   useEffect(() => {
+    if(location.fecha > new Date()) {
+        setBlock(true);
+    }
+    else {
+      setBlock(false);
+    }
     console.log('use effect ' + fecha);
     setAlumnos([]);
     location.asistenciasAEliminar = [];
@@ -102,8 +109,8 @@ export default function Cursos() {
             <Card>
               <CardHeader className="border-bottom">
                 <ListGroupItem className="d-flex px-3 border-0">
-                  <h4 className="m-0">Alumnos</h4>
-                  <Button theme="info" size="lg" className="ml-auto" onClick = { guardarAsistencias } >Guardar asistencias</Button>
+                  <h4 className="m-0"> <i class="material-icons mr-1">group</i> Alumnos</h4>
+                  <Button disabled={block} theme="info" size="lg" className="ml-auto" onClick = { guardarAsistencias } >Guardar asistencias</Button>
                 </ListGroupItem>
               </CardHeader>
               <br/>
@@ -115,6 +122,7 @@ export default function Cursos() {
                       value={alumno.nombre +' '+ alumno.apellido}
                       select={guardarAsistencias}
                       alumno={alumno}
+                      refresh={setFecha}
                     />
                   </Col>            
                 ))}

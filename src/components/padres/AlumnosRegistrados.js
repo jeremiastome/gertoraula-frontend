@@ -23,16 +23,11 @@ export default function AlumnosRegistrados() {
     });
   }, [update]);
 
-  function seleccionarAlumno(cursoId, cursoName) {
-      console.log(cursoId)
-     /* history.push({
-          pathname : '/curso',
-          asistencias : [],
-          fecha : new Date(),
-          asistenciasAEliminar : [],
-          cursoId : cursoId,
-          cursoName : cursoName,
-      });*/
+  function seleccionarAlumno(alumno) {
+      history.push({
+          pathname : '/detalleAlumno',
+          alumno : alumno
+      });
   }
   return (    
 
@@ -50,8 +45,8 @@ export default function AlumnosRegistrados() {
                 id={`small-stats-${alumno.id}`}
                 variation="1"
                 value={alumno.nombre+' '+alumno.apellido}
-                select={seleccionarAlumno}
-                elemid={alumno.id}
+                seleccionarAlumno={seleccionarAlumno}
+                alumno={alumno}
               />
             </Col>
           ))}

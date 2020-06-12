@@ -87,7 +87,7 @@ class AlumnoItem extends React.Component {
   }
 
   render() {
-    const { variation, label, value, percentage, increase, select, elemid } = this.props;
+    const { variation, label, value, percentage, increase, seleccionarAlumno , alumno} = this.props;
 
     var linkStyle;
     if (this.state.hover) {
@@ -142,7 +142,7 @@ class AlumnoItem extends React.Component {
     return (
       
       <div style={linkStyle} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} >
-        <Card onClick = { () => { select(elemid, value) } } small className={cardClasses}>
+        <Card onClick = { () => { seleccionarAlumno(alumno) } } small className={cardClasses}>
 
           <CardBody className={cardBodyClasses}>
             <div className={innerWrapperClasses}>
