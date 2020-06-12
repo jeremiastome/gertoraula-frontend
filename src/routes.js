@@ -10,6 +10,7 @@ import AlumnosRegistrados from "./components/padres/AlumnosRegistrados";
 import Alumnos from "./components/alumnos/Alumnos";
 import BuscadorDeAlumnos from "./components/alumnos/BuscadorDeAlumnos";
 import UserProfileLite from "./views/UserProfileLite";
+import Alumno from "./components/padres/Alumno";
 import CrearAlumnoView from "./views/CrearAlumnoView";
 import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
@@ -17,6 +18,7 @@ import Tables from "./views/Tables";
 import CrearCursoView from "./views/CrearCursoView";
 import Profile from "./components/Profile";
 import SignInSide from "./views/SignInSide";
+import DetalleAlumno from "./components/padres/DetalleAlumno";
 
 
 export default [
@@ -124,5 +126,12 @@ export default [
     component: (user) => {
       return(<Profile/>)
     }
-  }
+  },
+  {
+    path: "/detalleAlumno",
+    layout: DefaultLayout,
+    component: (user) => {
+      return(<Alumno/>)
+    }
+  },
 ];
