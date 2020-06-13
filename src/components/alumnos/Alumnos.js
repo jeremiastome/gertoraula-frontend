@@ -3,6 +3,8 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { Container, Row, Col, Button } from "shards-react";
 import PageTitle from "../common/PageTitle";
 import Alumno from "./Alumno"
+import Post from "../posts/Post";
+import CardPost from "../posts/CardPost";
 import classNames from "classnames";
 import { Card, CardHeader, CardBody, ListGroupItem,Alert } from "shards-react";
 import { CursoService } from '../../services/CursoService';
@@ -157,10 +159,14 @@ export default function Cursos() {
                         <br/>
                     </div>
                 </CardBody>
-              </Card> 
-                         
+              </Card>
+              <Card>
+                <CardBody className={cardBodyClasses}>
+                </CardBody>
+              </Card>
           </Col>
         </Row>
+        <CardPost cursoId = {location.cursoId}></CardPost>
       </Container>
     );
 }
