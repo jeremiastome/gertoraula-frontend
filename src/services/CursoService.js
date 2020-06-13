@@ -1,7 +1,9 @@
+import * as congig from './EndpointSetting';
+
 export const CursoService = {
 
     getCursos : async (email)  => {
-        let response = await fetch("http://localhost:8080/cursos/" + email);
+        let response = await fetch(congig.URL + "/cursos/" + email);
         let cursosList = await response.json();
         console.log('cursosList ');
         console.log(cursosList);
@@ -12,7 +14,7 @@ export const CursoService = {
 
         if (!asistenciasCurso || !id) return;
 
-        let response = await fetch("http://localhost:8080/cursos/" + id, {
+        let response = await fetch(congig.URL + "/cursos/" + id, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -28,7 +30,7 @@ export const CursoService = {
 
         if (!alumnos || !id) return;
 
-        let response = await fetch("http://localhost:8080/cursosAlumnos/" + id, {
+        let response = await fetch(congig.URL + "/cursosAlumnos/" + id, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -44,7 +46,7 @@ export const CursoService = {
 
         if (!asistenciasAEliminar) return;
 
-        let response = await fetch("http://localhost:8080/asistencias", {
+        let response = await fetch(congig.URL + "/asistencias", {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -60,7 +62,7 @@ export const CursoService = {
         if (!nuevoCurso) return;
 
         console.log('Crear curso ' + nuevoCurso)
-        let response = await fetch("http://localhost:8080/cursos/", {
+        let response = await fetch(congig.URL + "/cursos/", {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

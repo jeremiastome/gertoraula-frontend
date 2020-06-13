@@ -17,12 +17,23 @@ export default function FormValidationCurso(props) {
 
   const onSubmit = data => {
     console.log('Submit');
+    if(!validarFecha(data.fechaInicio, data.fechaFin)) {
+      NotificationManager.error('La fecha de fin debe ser mayor a la fecha de inicio!', '', 2000);
+      return;
+    }
+
     console.log(JSON.stringify(data));
     data['emailDocente'] = datosDeUsuario.email;
       CursoService.crearCurso(data).then(response =>  {
           NotificationManager.success('Se registró el curso correctamente!', '', 2000);
         }
       );
+  }
+
+  function validarFecha(fechaInicio, fechaFin) {
+
+
+    return fechaInicio < fechaFin; 
   }
 
   return(
@@ -41,7 +52,7 @@ export default function FormValidationCurso(props) {
                         <FormGroup>
                             <label htmlFor="feFirstName">Nombre del curso</label>
                             <Input className="form-control-alternative" required innerRef={register} 
-                            name="nombre" type="text" placeholder="Ingrese nombre del curso"/>
+                            name="nombre" autoComplete="off" type="text" placeholder="Ingrese nombre del curso"/>
                         </FormGroup>    
                       </Col>                              
                     </Row>

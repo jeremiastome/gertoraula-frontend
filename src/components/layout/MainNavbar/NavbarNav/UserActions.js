@@ -39,10 +39,6 @@ export default class UserActions extends React.Component {
           <span className="d-none d-md-inline-block">{this.props.user ? this.props.user.name : ""}</span>
         </DropdownToggle>
         <Collapse tag={DropdownMenu} right small open={this.state.visible}>
-          <DropdownItem tag={Link} to="user-profile">
-            <i className="material-icons">&#xE7FD;</i> Profile
-          </DropdownItem>
-          <DropdownItem divider />
           <DropdownItem onClick={() => this.props.logout()} className="text-danger">
             <i className="material-icons text-danger">&#xE879;</i> Logout
           </DropdownItem>

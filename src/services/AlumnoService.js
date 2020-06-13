@@ -1,10 +1,12 @@
+import * as congig from './EndpointSetting';
+
 export const AlumnoService = {
 
     crearAlumno : async (nuevoAlumno) => {
 
         if (!nuevoAlumno) return;
 
-        let response = await fetch("http://localhost:8080/alumnos/", {
+        let response = await fetch(congig.URL + "/alumnos/", {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -19,19 +21,19 @@ export const AlumnoService = {
     getAlumnos : async (cursoId, fecha)  => {
         console.log('alumnos');
         console.log(fecha);
-        let response = await fetch("http://localhost:8080/alumnos/"+cursoId+"?fecha="+fecha);
+        let response = await fetch(congig.URL + "/alumnos/"+cursoId+"?fecha="+fecha);
         let alumnosList = await response.json();
         return alumnosList;
     },
 
     getAllAlumnos : async (cursoId)  => {
-        let response = await fetch("http://localhost:8080/alumnosDeCurso/"+cursoId);
+        let response = await fetch(congig.URL + "/alumnosDeCurso/"+cursoId);
         let alumnosList = await response.json();
         return alumnosList;
     },
 
     getAlumnosByEmail : async (email)  => {
-        let response = await fetch("http://localhost:8080/alumnosRegistrados/"+email);
+        let response = await fetch(congig.URL + "/alumnosRegistrados/"+email);
         let alumnosList = await response.json();
         return alumnosList;
     },

@@ -21,13 +21,7 @@ export default function Cursos() {
   const [alumnos, setAlumnos] = useState([]);
   const [blocking, setBlocking] = useState(true);
 
-  useEffect(() => {
-    if(location.fecha > new Date()) {
-        setBlock(true);
-    }
-    else {
-      setBlock(false);
-    }
+  useEffect(() => {    
     console.log('use effect ' + fecha);
     setAlumnos([]);
     location.asistenciasAEliminar = [];
@@ -37,7 +31,13 @@ export default function Cursos() {
             console.log(JSON.stringify(data));        
             setAlumnos(data)            
           }
-          setBlocking(false)
+          setBlocking(false);
+          if(location.fecha > new Date() || !data || data.length == 0) {
+            setBlock(true);
+          }
+          else {
+            setBlock(false);
+          }
         }
     );
           

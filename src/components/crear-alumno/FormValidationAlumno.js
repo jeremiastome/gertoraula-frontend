@@ -35,10 +35,11 @@ export default function FormValidationAlumno(props) {
               <Form id="myForm" onSubmit = { handleSubmit(onSubmit)}>
                 <Col Col md="12" className="form-group">
                     <FormGroup>
-                        <label htmlFor="nombre">Apellido</label>
+                        <label htmlFor="nombre">Nombre</label>
                         <Input className="form-control-alternative" required innerRef={register} 
                         name="nombre" type="text" placeholder="Ingrese nombre del alumno"/>
                     </FormGroup>
+                    <h6>Alberto</h6>
                     <FormGroup>
                         <label htmlFor="apelldio">Apellido</label>
                         <Input className="form-control-alternative" required innerRef={register} 
