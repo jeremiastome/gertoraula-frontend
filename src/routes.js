@@ -8,6 +8,8 @@ import { DefaultLayout, LoginLayout } from "./layouts";
 import Cursos from "./components/cursos/Cursos";
 import AlumnosRegistrados from "./components/padres/AlumnosRegistrados";
 import Alumnos from "./components/alumnos/Alumnos";
+import AlumnoList from "./components/alumnos/AlumnoList";
+import EditarAlumno from "./components/alumnos/EditarAlumno";
 import BuscadorDeAlumnos from "./components/alumnos/BuscadorDeAlumnos";
 import UserProfileLite from "./views/UserProfileLite";
 import Alumno from "./components/padres/Alumno";
@@ -90,7 +92,7 @@ export default [
     }
   },
   {
-    path: "/errors",
+    path: "/error",
     layout: DefaultLayout,
     component: (user) => {
       return(<Errors/>)
@@ -131,7 +133,17 @@ export default [
     path: "/detalleAlumno",
     layout: DefaultLayout,
     component: (user) => {
-      return(<Alumno/>)
+      return(<EditarAlumno/>)
     }
   },
+  {
+    path: "/alumnos",
+    layout: DefaultLayout,
+    component: (datosDeUsuario) => {
+      if(datosDeUsuario.rol == 'docente'){ 
+        return(<AlumnoList/>)
+      }
+      return(<Redirect to="/home" />)      
+    }
+  }
 ];

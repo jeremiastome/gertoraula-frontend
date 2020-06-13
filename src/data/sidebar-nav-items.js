@@ -15,6 +15,11 @@ export default function() {
       title: "Nuevo alumno",
       htmlBefore: '<i class="material-icons">class</i>',
       to: "/nuevoAlumno",
+    },
+    {
+      title: "Alumnos",
+      htmlBefore: '<i class="material-icons">person_search</i>',
+      to: "/alumnos",
     }
     /*{
       title: "Forms & Components",

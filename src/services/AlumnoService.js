@@ -14,11 +14,27 @@ export const AlumnoService = {
             },
             body: JSON.stringify(nuevoAlumno)
         })
-        console.log('res ' + response);
+
         return response;
     },
 
-    getAlumnos : async (cursoId, fecha)  => {
+    actualizarAlumno : async (nuevoAlumno, email) => {
+        if (!nuevoAlumno) return;
+
+        let response = await fetch(congig.URL + "/alumnos/"+email, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(nuevoAlumno)
+        })
+        console.log('res ' + response);
+        let alumnoActualizado = await response.json();
+        return alumnoActualizado;
+    },
+
+    getAlumnosDeCurso : async (cursoId, fecha)  => {
         console.log('alumnos');
         console.log(fecha);
         let response = await fetch(congig.URL + "/alumnos/"+cursoId+"?fecha="+fecha);
@@ -44,4 +60,10 @@ export const AlumnoService = {
         })
         return response;
     },
+
+    getAlumnos : async ()  => {
+        let response = await fetch(congig.URL + "/alumnos");
+        let alumnosList = await response.json();
+        return alumnosList;
+    }
 }

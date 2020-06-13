@@ -25,7 +25,7 @@ export default function Cursos() {
     console.log('use effect ' + fecha);
     setAlumnos([]);
     location.asistenciasAEliminar = [];
-    AlumnoService.getAlumnos(location.cursoId, fecha.getTime()).then(data => {    
+    AlumnoService.getAlumnosDeCurso(location.cursoId, fecha.getTime()).then(data => {    
         console.log('alumnos');
         if(data) {
             console.log(JSON.stringify(data));        
