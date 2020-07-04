@@ -3,18 +3,21 @@ import * as congig from './EndpointSetting';
 export const CursoService = {
 
     getCursos : async (email)  => {
-        let response = await fetch(congig.URL + "/cursos/" + email);
-        let cursosList = await response.json();
+        const response = await fetch(congig.URL + "/cursos/" + email);
+        const cursosList = await response.json();
         console.log('cursosList ');
         console.log(cursosList);
         return cursosList;
     },
 
+    getEventos : async (cursoId)  => {
+        const response = await fetch(congig.URL + "/eventos/" + cursoId);
+        const eventos = await response.json();
+        return eventos;
+    },
+    
     guardarAsistencias : async (id, asistenciasCurso) => {
-
-        if (!asistenciasCurso || !id) return;
-
-        let response = await fetch(congig.URL + "/cursos/" + id, {
+        const response = await fetch(congig.URL + "/cursos/" + id, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -22,15 +25,12 @@ export const CursoService = {
             },
             body: JSON.stringify(asistenciasCurso)
         })
-        console.log('res ' + response);
+
         return response;
     },
 
     agregarAlumnos: async (id, alumnos) => {
-
-        if (!alumnos || !id) return;
-
-        let response = await fetch(congig.URL + "/cursosAlumnos/" + id, {
+        const response = await fetch(congig.URL + "/cursosAlumnos/" + id, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -38,15 +38,12 @@ export const CursoService = {
             },
             body: JSON.stringify(alumnos)
         })
-        console.log('res ' + response);
+
         return response;
     },
 
-    eliminarAsistencias : async (asistenciasAEliminar) => {
-
-        if (!asistenciasAEliminar) return;
-
-        let response = await fetch(congig.URL + "/asistencias", {
+    eliminarAsistencias : async (asistenciasAEliminar) => { 
+        const response = await fetch(congig.URL + "/asistencias", {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -57,12 +54,8 @@ export const CursoService = {
         console.log('res ' + response);
     },
 
-    crearCurso : async (nuevoCurso) => {
-        console.log('Crear curso ' + nuevoCurso)
-        if (!nuevoCurso) return;
-
-        console.log('Crear curso ' + nuevoCurso)
-        let response = await fetch(congig.URL + "/cursos/", {
+    crearCurso : async (nuevoCurso) => {        
+        const response = await fetch(congig.URL + "/cursos/", {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -72,5 +65,18 @@ export const CursoService = {
         })
         console.log('res ' + response);
         return response;
+    },
+
+    crearEvento : async (id, nuevoEvento) => {        
+        const response = await fetch(congig.URL + "/evento/" + id, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(nuevoEvento)
+        })
+        const emails = await response.json();
+        return emails;
     }
 }

@@ -30,9 +30,8 @@ export default function FormValidationAlumno(props) {
         else {
           response.text().then(alumno => {
             console.log('ALUMNO ' + alumno);
-            NotificationManager.success('Se creó el alumno correctamente', '', 2000);
             history.push({
-              pathname : '/alumno',
+              pathname : '/detalleAlumno',
               alumno : JSON.parse(alumno)
             }); 
           })          

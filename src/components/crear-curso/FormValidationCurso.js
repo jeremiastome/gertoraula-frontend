@@ -41,8 +41,7 @@ export default function FormValidationCurso(props) {
               cursoName : curso.nombre,
             });
           })
-          setBlocking(false);
-          NotificationManager.success('Se registró el curso correctamente!', '', 2000);          
+          setBlocking(false);       
         }
       );
   }

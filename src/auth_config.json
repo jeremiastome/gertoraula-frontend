@@ -1,4 +1,8 @@
 {
     "domain": "dev-a7nyin2a.auth0.com",
-    "clientId": "5pyd0SlHPxL2010d2Wggp5YkkEg5U1dQ"
+    "clientId": "5pyd0SlHPxL2010d2Wggp5YkkEg5U1dQ",
+    "CLIENT_ID" : "540021830631-ug8elfie4fgai16jtt2de8mff5vo18sr.apps.googleusercontent.com",
+    "API_KEY" : "AIzaSyBYHP_tFrxCRw5LMrXd6tU6c9Y3RDLhSEc",
+    "DISCOVERY_DOCS" : "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
+    "SCOPES" : "https://www.googleapis.com/auth/calendar.events"
 }

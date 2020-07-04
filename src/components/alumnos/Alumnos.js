@@ -8,6 +8,8 @@ import CardPost from "../posts/CardPost";
 import classNames from "classnames";
 import { Card, CardHeader, CardBody, ListGroupItem,Alert } from "shards-react";
 import { CursoService } from '../../services/CursoService';
+import NuevoEvento from '../../components/cursos/NuevoEvento';
+import Eventos from '../../components/cursos/Eventos';
 import { AlumnoService } from '../../services/AlumnoService';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import Calendar from 'react-calendar'
@@ -17,30 +19,29 @@ export default function Cursos() {
   const attrs = { md: "6", sm: "6" };
   const history = useHistory();
   const location = useLocation();
-  const [open, setOpen] = useState(false);
   const [block, setBlock] = useState(false);
+  const [updateEventos, setUpdateEventos] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
   const [fecha, setFecha] = useState(new Date());
   const [alumnos, setAlumnos] = useState([]);
   const [blocking, setBlocking] = useState(true);
 
   useEffect(() => {    
-    console.log('use effect ' + fecha);
     setAlumnos([]);
+    validateCurso();
     location.asistenciasAEliminar = [];
     AlumnoService.getAlumnosDeCurso(location.cursoId, fecha.getTime()).then(data => {    
-        console.log('alumnos');
-        if(data) {
-            console.log(JSON.stringify(data));        
-            setAlumnos(data)            
-          }
-          setBlocking(false);
-          if(location.fecha > new Date() || !data || data.length == 0) {
-            setBlock(true);
-          }
-          else {
-            setBlock(false);
-          }
+        if(data) {      
+          setAlumnos(data)            
         }
+        setBlocking(false);
+        if(location.fecha > new Date() || !data || data.length == 0) {
+          setBlock(true);
+        }
+        else {
+          setBlock(false);
+        }
+      }
     );
           
   }, [fecha]);
@@ -49,12 +50,11 @@ export default function Cursos() {
       setBlocking(true);
       CursoService.guardarAsistencias(location.cursoId, location.asistencias).then(response => {
           CursoService.eliminarAsistencias(location.asistenciasAEliminar);
-          setOpen(true);
           setFecha(fecha);
           setBlocking(false);
           location.asistencias = [];
           location.asistenciasAEliminar = [];
-          NotificationManager.success('Se has guardado las asistencias!', '', 2000);
+          NotificationManager.success('Se han guardado las asistencias!', '', 2000);
       });
   }
 
@@ -65,6 +65,25 @@ export default function Cursos() {
         cursoName : location.cursoName
     });
   };
+
+  const validateCurso = () => {
+    if(!location.cursoId) {
+      history.push({
+          pathname : '/'
+      });  
+    }
+  }
+  const nuevoEvento = () => {
+    setModalShow(true);
+  };  
+
+  const closeModal = (creadoEvento) => {
+    if(creadoEvento) {
+      NotificationManager.success('Se ha registrado el evento', '', 2000);
+      setUpdateEventos(!updateEventos);
+    }
+    setModalShow(false);
+}
 
   const guardarFecha = (date) => {
       location.fecha = date;
@@ -104,15 +123,15 @@ export default function Cursos() {
         <Row noGutters className="page-header py-4">
           <PageTitle title={"Curso " + location.cursoName} className="text-lg-left mb-6" />
         </Row>
-
-        {/* Small Stats Blocks */}
         <Row>        
           <Col lg="8" md="6" sm="12" className="col-lg mb-4">
             <Card>
               <CardHeader className="border-bottom">
                 <ListGroupItem className="d-flex px-3 border-0">
                   <h4 className="m-0"> <i class="material-icons mr-1">group</i> Alumnos</h4>
-                  <Button disabled={block} theme="info" size="lg" className="ml-auto" onClick = { guardarAsistencias } >Guardar asistencias</Button>
+                  <Button disabled={block} theme="info" size="lg" className="ml-auto" 
+                    onClick = { guardarAsistencias } >Guardar asistencias
+                  </Button>
                 </ListGroupItem>
               </CardHeader>
               <br/>
@@ -157,16 +176,30 @@ export default function Cursos() {
                     <div className={innerWrapperClasses}>
                         <Button theme="info" size="lg" className="ml-auto" onClick = { registrarAlumno } >Registrar alumno</Button>
                         <br/>
+                        <Button theme="info" size="lg" className="lg-auto" onClick = { nuevoEvento } >Nuevo evento</Button>
+                        <br/>
                     </div>
                 </CardBody>
               </Card>
               <Card>
                 <CardBody className={cardBodyClasses}>
+                  <NuevoEvento
+                    show={modalShow}
+                    onHide={closeModal}
+                    cursoId={location.cursoId}
+                  />
                 </CardBody>
               </Card>
           </Col>
         </Row>
-        <CardPost cursoId = {location.cursoId}></CardPost>
+        <Row>        
+          <Col lg="8" md="6" sm="12" className="col-lg mb-4">
+            <CardPost cursoId = {location.cursoId}></CardPost>
+          </Col>
+          <Col lg="4" md="6" sm="12" className="col-lg mb-4">
+            <Eventos update={updateEventos} cursoId = {location.cursoId}></Eventos>
+          </Col>
+        </Row>
       </Container>
     );
 }

@@ -44,14 +44,24 @@ export default function EditarAlumno() {
     console.log(JSON.stringify(data));
     setBlocking(true);
     data["id"] = location.alumno.id;
-    AlumnoService.actualizarAlumno(data, location.alumno.emailContacto).then(response =>  {        
-        NotificationManager.success('Se guardó el alumno correctamente', '', 2000);
-        location.alumno = response;
-        reset(location.alumno); 
-        setEdit(!edit);
-        setBlocking(false);
+    AlumnoService.actualizarAlumno(data, location.alumno.emailContacto, location.alumno.dni).then(response =>  {        
+      if(response.status != 200) {
+        response.text().then(res => {
+          NotificationManager.error(res, 'Error', 3000);
+          setBlocking(false);
+        }) 
       }
-    );
+      else {
+        response.text().then(alumno => {
+          NotificationManager.success('Se guardó el alumno correctamente', '', 2000);
+          location.alumno = JSON.parse(alumno);
+          reset(location.alumno); 
+          setEdit(!edit);
+          setBlocking(false);
+        })
+      } 
+      setBlocking(false);      
+    });
   }
 
   return(

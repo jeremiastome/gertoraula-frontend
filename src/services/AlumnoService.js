@@ -3,7 +3,6 @@ import * as congig from './EndpointSetting';
 export const AlumnoService = {
 
     crearAlumno : async (nuevoAlumno) => {
-
         if (!nuevoAlumno) return;
 
         let response = await fetch(congig.URL + "/alumnos/", {
@@ -18,10 +17,10 @@ export const AlumnoService = {
         return response;
     },
 
-    actualizarAlumno : async (nuevoAlumno, email) => {
+    actualizarAlumno : async (nuevoAlumno, email, dni) => {
         if (!nuevoAlumno) return;
 
-        let response = await fetch(congig.URL + "/alumnos/"+email, {
+        let response = await fetch(congig.URL + "/alumnos/"+email+"?dni="+dni, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -29,14 +28,11 @@ export const AlumnoService = {
             },
             body: JSON.stringify(nuevoAlumno)
         })
-        console.log('res ' + response);
-        let alumnoActualizado = await response.json();
-        return alumnoActualizado;
+        
+        return response;
     },
 
-    getAlumnosDeCurso : async (cursoId, fecha)  => {
-        console.log('alumnos');
-        console.log(fecha);
+    getAlumnosDeCurso : async (cursoId, fecha)  => {        
         let response = await fetch(congig.URL + "/alumnos/"+cursoId+"?fecha="+fecha);
         let alumnosList = await response.json();
         return alumnosList;
