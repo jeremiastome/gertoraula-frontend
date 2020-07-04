@@ -1,0 +1,35 @@
+.guardarAsistencias {
+    margin-left: auto;
+}
+
+.alumnos {
+    color: blue;
+}
+
+.alumnosAsistencias {
+    display: contents;
+}
+
+.d-flexAsistencias {
+    display: flex !important;
+}
+
+.calendar {
+    width: auto;
+}
+
+@media (max-width: 500px) {
+    .d-flexAsistencias {
+        display: contents !important;
+    }
+
+    .alumnosAsistencias {
+        display: grid;
+        justify-content: center;
+    }
+
+    .alumnos {
+        text-align: center;
+    }
+
+}

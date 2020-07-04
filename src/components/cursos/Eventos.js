@@ -36,8 +36,12 @@ export default function Eventos(props) {
                   </h5>
                   <p className="card-text d-inline-block mb-3">{evento.descripcion}</p>
                   <br/>
-                  <span className="text-muted">{evento.fechaInicio}</span>
-                  <span className="text-muted">{evento.fechaFin}</span>
+                  <Row>
+                    <p>Fecha de Inicio: </p>
+                    <span >{evento.fechaInicio}</span>
+                    <p>Fecha de Fin: </p>
+                    <span>{evento.fechaFin}</span>
+                  </Row>
                 </CardBody>
               </Card>
             </Col>
