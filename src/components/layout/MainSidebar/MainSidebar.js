@@ -14,7 +14,7 @@ class MainSidebar extends React.Component {
     super(props);
 
     this.state = {
-      menuVisible: false,
+      menuVisible: true,
       sidebarNavItems: Store.getSidebarItems()
     };
 

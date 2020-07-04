@@ -12,6 +12,7 @@ import { AlumnoService } from '../../services/AlumnoService';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
+import './styles/Alumnos.css'
 
 export default function Cursos() { 
   const attrs = { md: "6", sm: "6" };
@@ -110,9 +111,11 @@ export default function Cursos() {
           <Col lg="8" md="6" sm="12" className="col-lg mb-4">
             <Card>
               <CardHeader className="border-bottom">
-                <ListGroupItem className="d-flex px-3 border-0">
-                  <h4 className="m-0"> <i class="material-icons mr-1">group</i> Alumnos</h4>
-                  <Button disabled={block} theme="info" size="lg" className="ml-auto" onClick = { guardarAsistencias } >Guardar asistencias</Button>
+                <ListGroupItem className="d-flexAsistencias px-3 border-0">
+                  <div className="stats-small stats-small--1 alumnosAsistencias">
+                    <h4 className="m-0 alumnos"> <i class="material-icons mr-1">group</i> Alumnos</h4>
+                    <Button disabled={block} theme="info" size="lg" className="guardarAsistencias" onClick = { guardarAsistencias } >Guardar asistencias</Button>
+                  </div>
                 </ListGroupItem>
               </CardHeader>
               <br/>
@@ -139,7 +142,7 @@ export default function Cursos() {
                 </CardHeader><br/>                
                 <CardBody className={cardBodyClasses}>
                   <div className={innerWrapperClasses}>
-                        <Calendar style={dataFieldClasses()}
+                        <Calendar className="calendar" style={dataFieldClasses()}
                             onChange={guardarFecha}
                             value={fecha}
                          />
