@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import shortid from "shortid";
+import { Classes } from '../styles/Classes';
 import { Card, CardBody } from "shards-react";
 
 import Chart from "../../utils/chart";
@@ -96,63 +97,20 @@ class AlumnoItem extends React.Component {
       linkStyle = {color: '#000'}
     }
 
-    const cardClasses = classNames(
-      "stats-small",
-      variation && `stats-small--${variation}`
-    );
-
-    const cardBodyClasses = classNames(
-      variation === "1" ? "p-0 d-flex" : "px-0 pb-0"
-    );
-
-    const innerWrapperClasses = classNames(
-      "d-flex",
-      variation === "1" ? "flex-column m-auto" : "px-3"
-    );
-
-    const dataFieldClasses = classNames(
-      "stats-small__data",
-      variation === "1" && "text-center"
-    );
-
-    const labelClasses = classNames(
-      "stats-small__label",
-      "text-uppercase",
-      variation !== "1" && "mb-1"
-    );
-
-    const valueClasses = classNames(
-      "stats-small__value",
-      "count",
-      variation === "1" ? "my-3" : "m-0"
-    );
-
-    const innerDataFieldClasses = classNames(
-      "stats-small__data",
-      variation !== "1" && "text-right align-items-center"
-    );
-
-    const percentageClasses = classNames(
-      "stats-small__percentage",
-      `stats-small__percentage--${increase ? "increase" : "decrease"}`
-    );
-
-    const canvasHeight = variation === "1" ? 0 : 0;
-
     return (
       
       <div style={linkStyle} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} >
-        <Card onClick = { () => { seleccionarAlumno(alumno) } } small className={cardClasses}>
+        <Card onClick = { () => { seleccionarAlumno(alumno) } } small className={Classes.cardClasses}>
 
-          <CardBody className={cardBodyClasses}>
-            <div className={innerWrapperClasses}>
-              <div className={dataFieldClasses}>
-                <span className={labelClasses}>{label}</span>
-                <h6 className={valueClasses}>{value}</h6>
+          <CardBody className={Classes.cardBodyClasses}>
+            <div className={Classes.innerWrapperClasses}>
+              <div className={Classes.dataFieldClasses}>
+                <span className={Classes.labelClasses}>{label}</span>
+                <h6 className={Classes.valueClasses}>{value}</h6>
               </div>
             </div>
             <canvas
-              height={canvasHeight}
+              height={Classes.canvasHeight}
               ref={this.canvasRef}
               className={`stats-small-${shortid()}`}
             />

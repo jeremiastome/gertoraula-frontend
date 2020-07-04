@@ -32,12 +32,9 @@ export default function AlumnosRegistrados() {
   return (    
 
       <Container fluid className="main-content-container px-4">
-        {/* Page Header */}
         <Row noGutters className="page-header py-4">
           <PageTitle title="Alumnos registrados" className="text-sm-left mb-3" />
         </Row>
-
-        {/* Small Stats Blocks */}
         <Row>
           {alumnosRegistrados.map((alumno, idx) => (
             <Col lg="3" md="6" sm="12" className="col-lg mb-4" key={alumno.id} {...attrs}>

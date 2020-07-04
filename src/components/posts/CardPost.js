@@ -13,10 +13,7 @@ import { PostService } from '../../services/PostService';
 import {useState, useEffect}  from "react";
 import Post from "../posts/Post";
 
-
-
 import PageTitle from "../common/PageTitle";
-
 export default function CardPost(props) {
 
     const [state, setState] = useState([]);
@@ -31,15 +28,12 @@ export default function CardPost(props) {
 
     return (
       <Container fluid className="main-content-container px-4">
-        {/* Page Header */}
         <div>
             <Post refresh = {setRefresh} cursoId = {props.cursoId}></Post>
         </div>
         <Row noGutters className="page-header py-4">
           <PageTitle sm="4" title="Comunicaciones" className="text-sm-left" />
         </Row>
-
-        {/* First Row of Posts */}
         <Row>
           {state.map((post, idx) => (
             <Col lg="12" md="6" sm="12" className="mb-4" key={idx}>

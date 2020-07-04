@@ -3,9 +3,7 @@ import config from "../../auth_config.json";
 export const ApiCalendar = {
 
     nuevoEvento : (data, emails) => {
-        var gapi = window.gapi;
-        console.log(JSON.stringify(data)); 
-    
+        var gapi = window.gapi;    
         const attendees = [];
         emails.forEach(obj => attendees.push({'email' : obj.email}));
         gapi.load('client:auth2', () => {
@@ -14,8 +12,7 @@ export const ApiCalendar = {
             clientId: config.CLIENT_ID,
             discoveryDocs: config.DISCOVERY_DOCS,
             scope: config.SCOPES,
-          })
-    
+          })    
           gapi.client.load('calendar', 'v3', () => console.log('load'))          
           gapi.auth2.getAuthInstance().signIn()
           .then(() => {
@@ -48,15 +45,11 @@ export const ApiCalendar = {
             })
     
             request.execute(event => {
-              console.log('request')
-              console.log(event)
               window.open(event.htmlLink)
             })
           })
         })
     }
-
-    
 }
 
 const formatDateTime = adateTime => {

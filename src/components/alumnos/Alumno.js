@@ -1,17 +1,9 @@
 import React, {useState, useEffect} from "react";
-import classNames from "classnames";
-import { Card, 
-    CardBody, Col, 
-    Dropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
-    Collapse,
-    NavItem,
-    NavLink} from "shards-react";
+import { Card, CardBody, Col } from "shards-react";
 import { useLocation } from "react-router-dom";
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
+import { Classes } from '../styles/Classes';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { AlumnoService } from '../../services/AlumnoService';
@@ -22,6 +14,7 @@ export default function Alumno(props) {
     const {refresh } = props;
     const [hover, setHover] = useState(false);
     const [asistio, setAsistio] = useState('done');
+    const [removeVisible, setRemoveVisible] = useState(true);
     const [block, setBlock] = useState(false);
     const [linkStyle, setLinkStyle] = useState({color: '#000'});
     const location = useLocation();
@@ -30,7 +23,6 @@ export default function Alumno(props) {
     const open = Boolean(anchorEl);
 
     useEffect(() => {
-        console.log('ALUMNO 1');
         if(location.fecha > new Date()) {
             setBlock(true);
             setAsistio('block');
@@ -71,6 +63,7 @@ export default function Alumno(props) {
         setAnchorEl(null);
     };
 
+
     function agregarAsistencia() {
         if(block) return;
         if(asistio == 'done') {
@@ -95,6 +88,7 @@ export default function Alumno(props) {
             });
 
         } else {
+            //var index = asistencias.indexOf(props.alumno.id);
             location.asistencias = location.asistencias.filter(function( asist ) {
                 return asist.alumnoId !== props.alumno.id;
             });
@@ -109,54 +103,29 @@ export default function Alumno(props) {
         return { background : asistencia || block ? '' : '#80cbc4'}
     }
 
-    const cardClasses = classNames(
-      "stats-small",
-      props.variation && `stats-small--${props.variation}`
-    );
-
-    const cardBodyClasses = classNames(
-        props.variation === "1" ? "p-0 d-flex" : "px-0 pb-0"
-    );
-
-    const valueClasses = classNames(
-        "stats-small__value",
-        "count",
-        props.variation === "1" ? "my-3" : "m-0"
-    );
-
-    const innerWrapperClasses = classNames(
-        "d-flex",
-        props.variation === "1" ? "flex-column m-auto" : "px-3"
-    );
-
-    const dataFieldClasses = classNames(
-        "stats-small__data",
-        props.variation === "1" && "text-center"
-    );
-
     return (      
       <div style={{linkStyle}} onMouseEnter={showPointer} onMouseLeave={hidePointer} >
         <NotificationContainer/>
-        <Card data-testid="cardId" style = { estilos() } small className={cardClasses}>
+        <Card data-testid="cardId" style = { estilos() } small className={Classes.cardClasses}>
 
-          <CardBody className={cardBodyClasses}> 
-            <Col data-testid="cardBodyId" className={cardBodyClasses} lg="1" onClick = { agregarAsistencia }>
-                <div className={innerWrapperClasses}>
-                    <div className={dataFieldClasses}>
-                        <h6 className={valueClasses}><i className="material-icons mr-1">{asistio}</i></h6>
+          <CardBody className={Classes.cardBodyClasses}> 
+            <Col data-testid="cardBodyId" className={Classes.cardBodyClasses} lg="1" onClick = { agregarAsistencia }>
+                <div className={Classes.innerWrapperClasses}>
+                    <div className={Classes.dataFieldClasses}>
+                        <h6 className={Classes.valueClasses}><i className="material-icons mr-1">{asistio}</i></h6>
                     </div>
                 </div>
             </Col>          
-            <Col className={cardBodyClasses} lg="10" onClick = { agregarAsistencia }>
-                <div className={innerWrapperClasses}>
-                    <div className={dataFieldClasses}>
-                        <h6 data-testid="nombre" className={valueClasses}>{props.value}</h6>
+            <Col className={Classes.cardBodyClasses} lg="10" onClick = { agregarAsistencia }>
+                <div className={Classes.innerWrapperClasses}>
+                    <div className={Classes.dataFieldClasses}>
+                        <h6 data-testid="nombre" className={Classes.valueClasses}>{props.value}</h6>
                     </div>
                 </div>
             </Col>
-            <Col className={cardBodyClasses} lg="1">
-                <div className={innerWrapperClasses}>
-                    <div className={dataFieldClasses}>
+            <Col className={Classes.cardBodyClasses} lg="1">
+                <div className={Classes.innerWrapperClasses}>
+                    <div className={Classes.dataFieldClasses}>
                         <IconButton
                             aria-label="more"
                             aria-controls="long-menu"

@@ -4,12 +4,12 @@ import { Container, Row, Col, Button } from "shards-react";
 import PageTitle from "../common/PageTitle";
 import Alumno from "./Alumno"
 import CardPost from "../posts/CardPost";
-import classNames from "classnames";
 import { Card, CardHeader, CardBody, ListGroupItem,Alert } from "shards-react";
 import { CursoService } from '../../services/CursoService';
 import NuevoEvento from '../../components/cursos/NuevoEvento';
 import Eventos from '../../components/cursos/Eventos';
 import { AlumnoService } from '../../services/AlumnoService';
+import { Classes } from '../styles/Classes';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
@@ -24,7 +24,6 @@ export default function Alumnos() {
   const [modalShow, setModalShow] = useState(false);
   const [fecha, setFecha] = useState(new Date());
   const [alumnos, setAlumnos] = useState([]);
-  const [blocking, setBlocking] = useState(true);
   const _ = require('lodash');
   useEffect(() => {   
     console.log('ALUMNOS');
@@ -41,11 +40,9 @@ export default function Alumnos() {
   }, [fecha]);
 
   function guardarAsistencias() {
-      setBlocking(true);
       CursoService.guardarAsistencias(location.cursoId, location.asistencias).then(response => {
           CursoService.eliminarAsistencias(location.asistenciasAEliminar);
           setFecha(fecha);
-          setBlocking(false);
           location.asistencias = [];
           location.asistenciasAEliminar = [];
           NotificationManager.success('Se han guardado las asistencias!', '', 2000);
@@ -77,38 +74,12 @@ export default function Alumnos() {
       setUpdateEventos(!updateEventos);
     }
     setModalShow(false);
-}
+  }
 
   const guardarFecha = (date) => {
       location.fecha = date;
       setFecha(date);
   };
-
-  const cardBodyClasses = classNames(
-    "1" === "1" ? "p-0 d-flex" : "px-0 pb-0"
-  );
-
-  const valueClasses = classNames(
-      "stats-small__value",
-      "count",
-      "1" === "1" ? "my-3" : "m-0"
-  );
-
-  const innerWrapperClasses = classNames(
-      "d-flex",
-      "1" === "1" ? "flex-column m-auto" : "px-3"
-  );
-
-  const dataFieldClasses = () => {
-      return { 
-        borderRadius: '0.5rem',
-        boxShadow: '0 0.46875rem 2.1875rem rgba(90,97,105,.1), 0 0.9375rem 1.40625rem rgba(90,97,105,.1), 0 0.25rem 0.53125rem rgba(90,97,105,.12),0 0.125rem 0.1875rem rgba(90,97,105,.1);'
-      }
-  }
-
-  function atras() {
-      history.push({ pathname : '/' });
-  }
 
   return ( 
       <Container fluid className="main-content-container px-4">
@@ -150,9 +121,9 @@ export default function Alumnos() {
                     <h4 className="m-0">Asistencias por fecha</h4>                    
                   </ListGroupItem>
                 </CardHeader><br/>                
-                <CardBody className={cardBodyClasses}>
-                  <div className={innerWrapperClasses}>
-                        <Calendar className="calendar" style={dataFieldClasses()}
+                <CardBody className={Classes.cardBodyClasses}>
+                  <div className={Classes.innerWrapperClasses}>
+                        <Calendar className="calendar" style={Classes.dataFieldClasses()}
                             onChange={guardarFecha}
                             value={fecha}
                          />
@@ -166,8 +137,8 @@ export default function Alumnos() {
                     <h4 className="m-0">Gestionar curso</h4>                    
                   </ListGroupItem>
                 </CardHeader><br/>
-                <CardBody className={cardBodyClasses}>
-                    <div className={innerWrapperClasses}>
+                <CardBody className={Classes.cardBodyClasses}>
+                    <div className={Classes.innerWrapperClasses}>
                         <Button theme="info" size="lg" className="ml-auto" onClick = { registrarAlumno } >Registrar alumno</Button>
                         <br/>
                         <Button theme="info" size="lg" className="lg-auto" onClick = { nuevoEvento } >Nuevo evento</Button>
@@ -176,7 +147,7 @@ export default function Alumnos() {
                 </CardBody>
               </Card>
               <Card>
-                <CardBody className={cardBodyClasses}>
+                <CardBody className={Classes.cardBodyClasses}>
                   <NuevoEvento
                     show={modalShow}
                     onHide={closeModal}
