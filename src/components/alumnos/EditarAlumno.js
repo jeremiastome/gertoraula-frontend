@@ -9,14 +9,17 @@ import PageTitle from "../../components/common/PageTitle";
 import { useLocation, useHistory } from 'react-router-dom';
 import { Container, Button, Card, CardHeader, ListGroup, ListGroupItem,Row,Col } from "shards-react";
 import { AlumnoService } from "./../../services/AlumnoService"
+import { CursoService } from "./../../services/CursoService"
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import { useAuth0 } from "./../../react-auth0-spa";
+import MisCursos from "./MisCursos";
 import BlockUi from 'react-block-ui';
 import 'react-block-ui/style.css';
 
 export default function EditarAlumno() { 
   const history = useHistory();
   const [edit, setEdit] = useState(false);
+  const [listaDeCursos, setListaDeCursos] = useState([]);
   const [blocking, setBlocking] = useState(false);
   const { datosDeUsuario } = useAuth0();
   const location = useLocation();
@@ -33,6 +36,11 @@ export default function EditarAlumno() {
         });  
       }
       reset(location.alumno);  
+      if(datosDeUsuario.rol == "docente") return; 
+      CursoService.getCursosAlumno(location.alumno.id).then(cursos =>  {       
+        setListaDeCursos(cursos);
+      }); 
+
   }, []);
 
   const toggleEdit = () => {
@@ -142,6 +150,9 @@ export default function EditarAlumno() {
               </ListGroup>
             </Card>
           </Col>
+        </Row>
+        <Row>
+          { datosDeUsuario.rol != "docente"  && <MisCursos listaDeCursos={listaDeCursos}/>}
         </Row>
       </BlockUi>
     </Container>

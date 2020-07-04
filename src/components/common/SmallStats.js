@@ -5,8 +5,6 @@ import { Classes } from '../styles/Classes';
 import shortid from "shortid";
 import { Card, CardBody } from "shards-react";
 
-import Chart from "../../utils/chart";
-
 class SmallStats extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +19,7 @@ class SmallStats extends React.Component {
   };
 
   render() {
-    const { variation, label, value, percentage, increase, select, elemid } = this.props;
+    const { cursoId, label, value, percentage, increase, select, elemid } = this.props;
 
     var linkStyle;
     if (this.state.hover) {
@@ -33,7 +31,7 @@ class SmallStats extends React.Component {
     return (
       
       <div style={linkStyle} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} >
-        <Card onClick = { () => { select(elemid, value) } } small className={Classes.cardClasses}>
+        <Card onClick = { () => { select(cursoId, value) } } small className={Classes.cardClasses}>
 
           <CardBody className={Classes.cardBodyClasses}>
             <div className={Classes.innerWrapperClasses}>
@@ -53,55 +51,5 @@ class SmallStats extends React.Component {
     );
   }
 }
-
-SmallStats.propTypes = {
-  /**
-   * The Small Stats variation.
-   */
-  variation: PropTypes.string,
-  /**
-   * The label.
-   */
-  label: PropTypes.string,
-  /**
-   * The value.
-   */
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  /**
-   * The percentage number or string.
-   */
-  percentage: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  /**
-   * Whether is a value increase, or not.
-   */
-  increase: PropTypes.bool,
-  /**
-   * The Chart.js configuration object.
-   */
-  chartConfig: PropTypes.object,
-  /**
-   * The Chart.js options object.
-   */
-  chartOptions: PropTypes.object,
-  /**
-   * The chart data.
-   */
-  chartData: PropTypes.array.isRequired,
-  /**
-   * The chart labels.
-   */
-  chartLabels: PropTypes.array
-};
-
-SmallStats.defaultProps = {
-  increase: true,
-  percentage: null,
-  value: null,
-  label: "",
-  chartOptions: Object.create(null),
-  chartConfig: Object.create(null),
-  chartData: [],
-  chartLabels: []
-};
 
 export default SmallStats;

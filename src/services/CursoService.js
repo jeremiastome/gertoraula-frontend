@@ -7,6 +7,11 @@ export const CursoService = {
         return await response.json();
     },
 
+    getCursosAlumno : async (alumnoId)  => {
+        const response = await fetch(congig.URL + "/cursosDeAlumno/" + alumnoId);
+        return await response.json();
+    },
+
     getEventos : async (cursoId)  => {
         const response = await fetch(congig.URL + "/eventos/" + cursoId);
         return await response.json();

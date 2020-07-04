@@ -84,7 +84,6 @@ export default function Alumnos() {
   return ( 
       <Container fluid className="main-content-container px-4">
         <NotificationContainer/>
-
         <Row noGutters className="page-header py-4">
           <PageTitle data-testid="title"  title={"Curso " + location.cursoName} className="text-lg-left mb-6" />
         </Row>

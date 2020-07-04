@@ -12,13 +12,14 @@ import {
 import { PostService } from '../../services/PostService';
 import {useState, useEffect}  from "react";
 import Post from "../posts/Post";
-
+import { useAuth0 } from "./../../react-auth0-spa";
 import PageTitle from "../common/PageTitle";
+
 export default function CardPost(props) {
 
     const [state, setState] = useState([]);
     const [refresh, setRefresh] = useState({});
-
+    const { datosDeUsuario } = useAuth0();
     useEffect(() => {
         PostService.getPosts(props.cursoId).then(res => {
             setState(res);
@@ -29,7 +30,7 @@ export default function CardPost(props) {
     return (
       <Container fluid className="main-content-container px-4">
         <div>
-            <Post refresh = {setRefresh} cursoId = {props.cursoId}></Post>
+        { datosDeUsuario.rol != "docente"  && <Post refresh = {setRefresh} cursoId = {props.cursoId}></Post> } 
         </div>
         <Row noGutters className="page-header py-4">
           <PageTitle sm="4" title="Comunicaciones" className="text-sm-left" />

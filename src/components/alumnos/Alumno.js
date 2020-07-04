@@ -32,8 +32,7 @@ export default function Alumno(props) {
         }
         else {
             setAsistio('done');
-        }
-              
+        }              
       }, []);
 
     const showPointer =() => {

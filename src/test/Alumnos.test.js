@@ -1,8 +1,9 @@
 import React from "react";
 import { render, unmountComponentAtNode } from "react-dom";
-import { act } from "react-dom/test-utils";
+import { act, findRenderedComponentWithType } from "react-dom/test-utils";
 import Alumnos from "../components/alumnos/Alumnos";
 import 'mutationobserver-shim';
+import Alumno from "../components/alumnos/Alumno";
 
 jest.mock("react-router-dom", () => ({
     ...jest.requireActual("react-router-dom"),
@@ -18,28 +19,31 @@ jest.mock("react-router-dom", () => ({
 
 let container = null;
 beforeEach(() => {
-  // configurar un elemento del DOM como objetivo del renderizado
   container = document.createElement("div");
   document.body.appendChild(container);
 });
 
 afterEach(() => {
-  // limpieza al salir
   unmountComponentAtNode(container);
   container.remove();
   container = null;
 });
 
-it("renderiza datos de usuario", async () => {
-    const alumno = {
+it("renderiza lista de alumnos", async () => {
+    const alumnos = [{
         id: 1,
         nombre: "Joni",
         apellido: "Baez"
-    };
+    },{
+        id: 2,
+        nombre: "Joni",
+        apellido: "Baez"
+    }
+  ];
       
   jest.spyOn(global, "fetch").mockImplementation(() =>
     Promise.resolve({
-      json: () => Promise.resolve([alumno])
+      json: () => Promise.resolve(alumnos)
     })
   );
 
@@ -49,7 +53,4 @@ it("renderiza datos de usuario", async () => {
 
   const title = container.querySelector("[data-testid='title']");
   expect(title.textContent).toEqual("Curso Curso test");  
-
-  const alumnos = container.querySelector("[data-testid='alumnos']");
-  //expect(alumnos.length).toEqual("Joni");  
 });

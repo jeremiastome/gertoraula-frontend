@@ -5,8 +5,6 @@ import shortid from "shortid";
 import { Classes } from '../styles/Classes';
 import { Card, CardBody } from "shards-react";
 
-import Chart from "../../utils/chart";
-
 class AlumnoItem extends React.Component {
   constructor(props) {
     super(props);
@@ -18,73 +16,6 @@ class AlumnoItem extends React.Component {
 
   toggleHover =() => {
     this.setState({hover: !this.state.hover})
-  }
-
-  componentDidMount() {    
-    const chartOptions = {
-      ...{
-        maintainAspectRatio: true,
-        responsive: true,
-        legend: {
-          display: false
-        },
-        tooltips: {
-          enabled: false,
-          custom: false
-        },
-        elements: {
-          point: {
-            radius: 0
-          },
-          line: {
-            tension: 0.33
-          }
-        },
-        scales: {
-          xAxes: [
-            {
-              gridLines: false,
-              ticks: {
-                display: false
-              }
-            }
-          ],
-          yAxes: [
-            {
-              gridLines: false,
-              scaleLabel: false,
-              ticks: {
-                display: false,
-                isplay: false,
-                // Avoid getting the graph line cut of at the top of the canvas.
-                // Chart.js bug link: https://github.com/chartjs/Chart.js/issues/4790
-                //suggestedMax: Math.max(...this.props.chartData[0].data) + 1
-              }
-            }
-          ]
-        }
-      },
-      ...this.props.chartOptions
-    };
-
-  
-    const chartConfig = {
-      ...{
-        type: "line",
-        data: {
-          ...{
-            labels: this.props.chartLabels
-          },
-          ...{
-            datasets: this.props.chartData
-          }
-        },
-        options: chartOptions
-      },
-      ...this.props.chartConfig
-    };
-
-    new Chart(this.canvasRef.current, chartConfig);
   }
 
   render() {
