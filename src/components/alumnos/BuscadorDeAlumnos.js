@@ -93,7 +93,6 @@ export default function BuscadorDeAlumnos() {
     function registrar() {
         CursoService.agregarAlumnos(location.cursoId, alumnos).then(
             (res) => {
-                //NotificationManager.success('Se registraron los alumnos correctamente!', '', 2000);
                 atras()
             }
         )

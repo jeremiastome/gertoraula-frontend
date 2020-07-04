@@ -12,7 +12,7 @@ import { PostService } from '../../services/PostService';
 
 
 export default function Post(props) {
-
+  
   const { register, handleSubmit } = useForm();
 
   const onSubmit = data => {
@@ -42,7 +42,7 @@ export default function Post(props) {
                 <FormGroup>
                     <label htmlFor="comunicacion">Comunicación</label>
                     <Input className="form-control-alternative" required innerRef={register} 
-                    name="cuerpo" type="text" placeholder="Ingrese comunicación"/>
+                    name="cuerpo" type="textarea" placeholder="Ingrese comunicación"/>
                 </FormGroup>
             </Col>
             <br/>

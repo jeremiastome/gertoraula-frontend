@@ -18,21 +18,18 @@ export default function FormValidationAlumno(props) {
   const [blocking, setBlocking] = useState(false);
 
   const onSubmit = data => {
-    console.log(JSON.stringify(data));
     setBlocking(true);
-    AlumnoService.crearAlumno(data).then(response =>  {
-      
+    AlumnoService.crearAlumno(data).then(response =>  {      
         if(response.status != 200) {
             response.text().then(res => {
               NotificationManager.error(res, 'Error', 3000);
             })          
         }
         else {
-          response.text().then(alumno => {
-            console.log('ALUMNO ' + alumno);
+          response.json().then(alumno => {
             history.push({
               pathname : '/detalleAlumno',
-              alumno : JSON.parse(alumno)
+              alumno : alumno
             }); 
           })          
         }        

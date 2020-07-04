@@ -3,7 +3,6 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { Container, Row, Col, Button } from "shards-react";
 import PageTitle from "../common/PageTitle";
 import Alumno from "./Alumno"
-import Post from "../posts/Post";
 import CardPost from "../posts/CardPost";
 import classNames from "classnames";
 import { Card, CardHeader, CardBody, ListGroupItem,Alert } from "shards-react";
@@ -26,35 +25,19 @@ export default function Alumnos() {
   const [fecha, setFecha] = useState(new Date());
   const [alumnos, setAlumnos] = useState([]);
   const [blocking, setBlocking] = useState(true);
-
+  const _ = require('lodash');
   useEffect(() => {   
-    const alumno = {
-      id: 1,
-      nombre: "Joni",
-      apellido: "Baez"
-    };
     console.log('ALUMNOS');
-    setAlumnos([alumno]);
+    setAlumnos([]);
     validateCurso();   
-
+    setBlock(true);
+    if(location.fecha > new Date()) return;
     location.asistenciasAEliminar = [];
     AlumnoService.getAlumnosDeCurso(location.cursoId, fecha.getTime()).then(data => { 
-      console.log('data');    
-        console.log(data); 
-        if(data) {   
-          console.log('setdata');     
-          setAlumnos(data)           
-        }
-        setBlocking(false);
-        if(location.fecha > new Date() || data.length == 0) {
-          setBlock(true);
-        }
-        else {
-          setBlock(false);
-        }
+        setBlock(_.isEmpty(data));
+        setAlumnos(data); 
       }
-    );
-          
+    );          
   }, [fecha]);
 
   function guardarAsistencias() {

@@ -22,7 +22,6 @@ export default function Alumno(props) {
     const {refresh } = props;
     const [hover, setHover] = useState(false);
     const [asistio, setAsistio] = useState('done');
-    const [removeVisible, setRemoveVisible] = useState(true);
     const [block, setBlock] = useState(false);
     const [linkStyle, setLinkStyle] = useState({color: '#000'});
     const location = useLocation();
@@ -72,7 +71,6 @@ export default function Alumno(props) {
         setAnchorEl(null);
     };
 
-
     function agregarAsistencia() {
         if(block) return;
         if(asistio == 'done') {
@@ -97,7 +95,6 @@ export default function Alumno(props) {
             });
 
         } else {
-            //var index = asistencias.indexOf(props.alumno.id);
             location.asistencias = location.asistencias.filter(function( asist ) {
                 return asist.alumnoId !== props.alumno.id;
             });
