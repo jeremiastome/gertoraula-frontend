@@ -33,7 +33,7 @@ export default function Post(props) {
           <h4 className="m-0">Nueva comunicación</h4>
           <br></br>
           <Form id="myForm" onSubmit = { handleSubmit(onSubmit)}>
-            <Col Col md="12" className="form-group">
+            <Col md="12" className="form-group">
                 <FormGroup>
                     <label htmlFor="titulo">Titulo</label>
                     <Input className="form-control-alternative" required innerRef={register} 

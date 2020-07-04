@@ -7,6 +7,15 @@ export default function Eventos(props) {
 
   const [eventos, setEventos] = useState([]);
 
+  const format = (date) => {
+    const current_datetime = new Date(date);
+    return current_datetime.getDate() + 
+      "/" + (current_datetime.getMonth() + 1) + 
+      "/" + current_datetime.getFullYear() + 
+      " " + ("0" + current_datetime.getHours()).slice(-2) + 
+      ":" + ("0" + current_datetime.getMinutes()).slice(-2); 
+  }
+  
   useEffect(() => {
     CursoService.getEventos(props.cursoId).then(data => { 
         setEventos(data)
@@ -21,7 +30,7 @@ export default function Eventos(props) {
         <Row>
           {eventos.map((evento, idx) => (
             <Col lg="12" md="6" sm="12" className="mb-4" key={idx}>
-              <Card Card small className="card-post card-post--1">
+              <Card small className="card-post card-post--1">
                 <div>
                   <Badge
                     pill
@@ -36,12 +45,8 @@ export default function Eventos(props) {
                   </h5>
                   <p className="card-text d-inline-block mb-3">{evento.descripcion}</p>
                   <br/>
-                  <Row>
-                    <p>Fecha de Inicio: </p>
-                    <span >{evento.fechaInicio}</span>
-                    <p>Fecha de Fin: </p>
-                    <span>{evento.fechaFin}</span>
-                  </Row>
+                    <p>Fecha de Inicio: { format(evento.fechaInicio)}</p>
+                    <p>Fecha de Fin: { format(evento.fechaFin)}</p>
                 </CardBody>
               </Card>
             </Col>

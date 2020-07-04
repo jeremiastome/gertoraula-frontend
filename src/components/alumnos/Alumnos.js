@@ -16,7 +16,7 @@ import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import './styles/Alumnos.css'
 
-export default function Cursos() { 
+export default function Alumnos() { 
   const attrs = { md: "6", sm: "6" };
   const history = useHistory();
   const location = useLocation();
@@ -27,16 +27,26 @@ export default function Cursos() {
   const [alumnos, setAlumnos] = useState([]);
   const [blocking, setBlocking] = useState(true);
 
-  useEffect(() => {    
-    setAlumnos([]);
-    validateCurso();
+  useEffect(() => {   
+    const alumno = {
+      id: 1,
+      nombre: "Joni",
+      apellido: "Baez"
+    };
+    console.log('ALUMNOS');
+    setAlumnos([alumno]);
+    validateCurso();   
+
     location.asistenciasAEliminar = [];
-    AlumnoService.getAlumnosDeCurso(location.cursoId, fecha.getTime()).then(data => {    
-        if(data) {      
-          setAlumnos(data)            
+    AlumnoService.getAlumnosDeCurso(location.cursoId, fecha.getTime()).then(data => { 
+      console.log('data');    
+        console.log(data); 
+        if(data) {   
+          console.log('setdata');     
+          setAlumnos(data)           
         }
         setBlocking(false);
-        if(location.fecha > new Date() || !data || data.length == 0) {
+        if(location.fecha > new Date() || data.length == 0) {
           setBlock(true);
         }
         else {
@@ -122,7 +132,7 @@ export default function Cursos() {
         <NotificationContainer/>
 
         <Row noGutters className="page-header py-4">
-          <PageTitle title={"Curso " + location.cursoName} className="text-lg-left mb-6" />
+          <PageTitle data-testid="title"  title={"Curso " + location.cursoName} className="text-lg-left mb-6" />
         </Row>
         <Row>        
           <Col lg="8" md="6" sm="12" className="col-lg mb-4">
@@ -130,15 +140,15 @@ export default function Cursos() {
               <CardHeader className="border-bottom">
                 <ListGroupItem className="d-flexAsistencias px-3 border-0">
                   <div className="stats-small stats-small--1 alumnosAsistencias">
-                    <h4 className="m-0 alumnos"> <i class="material-icons mr-1">group</i> Alumnos</h4>
+                    <h4 className="m-0 alumnos"> <i className="material-icons mr-1">group</i> Alumnos</h4>
                     <Button disabled={block} theme="info" size="lg" className="guardarAsistencias" onClick = { guardarAsistencias } >Guardar asistencias</Button>
                   </div>
                 </ListGroupItem>
               </CardHeader>
               <br/>
                 {alumnos.map((alumno, idx) => (
-                  <Col lg="12" md="6" sm="12" className="col-lg mb-4" key={alumno.id}>
-                    <Alumno
+                  <Col id={alumno.id} data-testid="alumnoId" lg="12" md="6" sm="12" className="col-lg mb-4" key={alumno.id}>
+                    <Alumno 
                       id={`small-stats-${alumno.id}`}
                       variation="1"
                       value={alumno.nombre +' '+ alumno.apellido}

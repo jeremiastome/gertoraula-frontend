@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import { Auth0Provider } from './react-auth0-spa';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
+  ReactDOM.render(<Auth0Provider />, div);
   ReactDOM.unmountComponentAtNode(div);
 });

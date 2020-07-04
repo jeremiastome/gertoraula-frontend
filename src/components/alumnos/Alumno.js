@@ -31,6 +31,7 @@ export default function Alumno(props) {
     const open = Boolean(anchorEl);
 
     useEffect(() => {
+        console.log('ALUMNO 1');
         if(location.fecha > new Date()) {
             setBlock(true);
             setAsistio('block');
@@ -91,9 +92,6 @@ export default function Alumno(props) {
                 location.asistencias.push(asistenciaNueva);
             }
             var index = location.asistenciasAEliminar.indexOf(props.alumno.id);
-            console.log('asistencias');
-            console.log(location.asistencias.length);
-            console.log(location.asistencias);
             location.asistenciasAEliminar = location.asistenciasAEliminar.filter(function( asist ) {
                 return asist.alumnoId !== props.alumno.id;
             });
@@ -101,21 +99,13 @@ export default function Alumno(props) {
         } else {
             //var index = asistencias.indexOf(props.alumno.id);
             location.asistencias = location.asistencias.filter(function( asist ) {
-                console.log('filter');
                 return asist.alumnoId !== props.alumno.id;
             });
-            console.log(location.asistencias.length);
-            //asistencias.splice(index, 1);
             setAsistencia(null);
-
             if(props.alumno.asistencia) {
                 location.asistenciasAEliminar.push(props.alumno.asistencia);
             }
-            console.log('asis ' + props.alumno.asistencia);
         }
-        console.log('a eliminar');
-        console.log(location.asistenciasAEliminar.length);
-        console.log(location.asistenciasAEliminar);
     }
 
     const estilos = () => {
@@ -142,7 +132,7 @@ export default function Alumno(props) {
         props.variation === "1" ? "flex-column m-auto" : "px-3"
     );
 
-        const dataFieldClasses = classNames(
+    const dataFieldClasses = classNames(
         "stats-small__data",
         props.variation === "1" && "text-center"
     );
@@ -150,20 +140,20 @@ export default function Alumno(props) {
     return (      
       <div style={{linkStyle}} onMouseEnter={showPointer} onMouseLeave={hidePointer} >
         <NotificationContainer/>
-        <Card style = { estilos() } small className={cardClasses}>
+        <Card data-testid="cardId" style = { estilos() } small className={cardClasses}>
 
           <CardBody className={cardBodyClasses}> 
-            <Col className={cardBodyClasses} lg="1" onClick = { agregarAsistencia }>
+            <Col data-testid="cardBodyId" className={cardBodyClasses} lg="1" onClick = { agregarAsistencia }>
                 <div className={innerWrapperClasses}>
                     <div className={dataFieldClasses}>
-                        <h6 className={valueClasses}><i class="material-icons mr-1">{asistio}</i></h6>
+                        <h6 className={valueClasses}><i className="material-icons mr-1">{asistio}</i></h6>
                     </div>
                 </div>
             </Col>          
             <Col className={cardBodyClasses} lg="10" onClick = { agregarAsistencia }>
                 <div className={innerWrapperClasses}>
                     <div className={dataFieldClasses}>
-                        <h6 className={valueClasses}>{props.value}</h6>
+                        <h6 data-testid="nombre" className={valueClasses}>{props.value}</h6>
                     </div>
                 </div>
             </Col>

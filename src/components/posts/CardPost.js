@@ -43,7 +43,7 @@ export default function CardPost(props) {
         <Row>
           {state.map((post, idx) => (
             <Col lg="12" md="6" sm="12" className="mb-4" key={idx}>
-              <Card Card small className="card-post card-post--1">
+              <Card small className="card-post card-post--1">
                 <div>
                   <Badge
                     pill

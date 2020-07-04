@@ -18,8 +18,6 @@ export default function NuevoEvento(props) {
   const defaultEndDate = new Date();
   defaultEndDate.setHours(defaultEndDate.getHours() + 1);
 
-  console.log('HOLAAAAAAA');
-  console.log(props);
   const evento = data => {
     CursoService.crearEvento(props.cursoId, data).then(emails => {
         if(data.agregarCalendar) {
@@ -76,7 +74,7 @@ export default function NuevoEvento(props) {
                     <Col md="6" className="form-group">
                       <FormGroup> 
                         <label htmlFor="feLastName">Fecha hora de fin</label>
-                        <Input className="form-control-alternative" defaultValue={defaultEndDate} innerRef={register} 
+                        <Input className="form-control-alternative" defaultValue={defaultEndDate} required innerRef={register} 
                             name="fechaFin" type="datetime-local"/>
                         </FormGroup>
                     </Col>
