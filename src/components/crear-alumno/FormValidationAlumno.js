@@ -20,7 +20,7 @@ export default function FormValidationAlumno(props) {
   const onSubmit = data => {
     setBlocking(true);
     AlumnoService.crearAlumno(data).then(response =>  {      
-        if(response.status != 200) {
+        if(response.status != 201) {
             response.text().then(res => {
               NotificationManager.error(res, 'Error', 3000);
             })          

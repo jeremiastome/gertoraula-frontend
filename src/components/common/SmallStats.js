@@ -31,7 +31,7 @@ class SmallStats extends React.Component {
     return (
       
       <div style={linkStyle} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} >
-        <Card onClick = { () => { select(cursoId, value) } } small className={Classes.cardClasses}>
+        <Card onClick = { () => { select(elemid, value) } } small className={Classes.cardClasses}>
 
           <CardBody className={Classes.cardBodyClasses}>
             <div className={Classes.innerWrapperClasses}>

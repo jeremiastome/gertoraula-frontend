@@ -14,6 +14,7 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import './styles/Alumnos.css'
+import {isEmpty} from 'lodash'
 
 export default function Alumnos() { 
   const attrs = { md: "6", sm: "6" };
@@ -24,16 +25,14 @@ export default function Alumnos() {
   const [modalShow, setModalShow] = useState(false);
   const [fecha, setFecha] = useState(new Date());
   const [alumnos, setAlumnos] = useState([]);
-  const _ = require('lodash');
   useEffect(() => {   
-    console.log('ALUMNOS');
     setAlumnos([]);
     validateCurso();   
     setBlock(true);
     if(location.fecha > new Date()) return;
     location.asistenciasAEliminar = [];
     AlumnoService.getAlumnosDeCurso(location.cursoId, fecha.getTime()).then(data => { 
-        setBlock(_.isEmpty(data));
+        setBlock(isEmpty(data));
         setAlumnos(data); 
       }
     );          

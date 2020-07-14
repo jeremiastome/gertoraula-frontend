@@ -30,7 +30,7 @@ export default function CardPost(props) {
     return (
       <Container fluid className="main-content-container px-4">
         <div>
-        { datosDeUsuario.rol != "docente"  && <Post refresh = {setRefresh} cursoId = {props.cursoId}></Post> } 
+        { datosDeUsuario.rol == "docente"  && <Post refresh = {setRefresh} cursoId = {props.cursoId}></Post> } 
         </div>
         <Row noGutters className="page-header py-4">
           <PageTitle sm="4" title="Comunicaciones" className="text-sm-left" />
