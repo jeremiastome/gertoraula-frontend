@@ -17,8 +17,6 @@ export default function MisCursos(props) {
   const { datosDeUsuario } = useAuth0();
 
   function seleccionarCurso(cursoId, cursoName) {
-        console.log(cursoId);
-        console.log(cursoName);
         setCursoId(1);
         setCursoName(cursoName);
         setVerCursos(false);        

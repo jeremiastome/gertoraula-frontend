@@ -18,7 +18,7 @@
     "date-fns": "2.13.0",
     "dateformat": "^3.0.3",
     "flux": "^3.1.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "lodash.find": "^4.6.0",
     "material-table": "^1.57.2",
     "mutationobserver-shim": "^0.3.7",

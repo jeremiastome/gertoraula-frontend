@@ -22,13 +22,11 @@ export default function FormValidationCurso(props) {
 
   const onSubmit = data => {
     setBlocking(true);
-    console.log('Submit');
     if(!validarFecha(data.fechaInicio, data.fechaFin)) {
       NotificationManager.error('La fecha de fin debe ser mayor a la fecha de inicio!', '', 2000);
       return;
     }
 
-    console.log(JSON.stringify(data));
     data['emailDocente'] = datosDeUsuario.email;
       CursoService.crearCurso(data).then(response =>  {
           response.json().then(curso =>  {

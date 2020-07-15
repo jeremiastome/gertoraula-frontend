@@ -24,7 +24,6 @@ export default function Cursos() {
   }, [update]);
 
   function seleccionarCurso(cursoId, cursoName) {
-      console.log(cursoId)
       history.push({
           pathname : '/curso',
           asistencias : [],

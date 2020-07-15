@@ -44,7 +44,6 @@ export default function Alumno(props) {
     } 
 
     function removerAlumno() {
-        console.log('removerAlumno');
         
         AlumnoService.removerAlumno(location.cursoId, props.alumno.id).then(data => {
                 NotificationManager.success('Se ha removido el alumno de la clase', '', 2000);

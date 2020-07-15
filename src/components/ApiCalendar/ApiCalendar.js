@@ -53,7 +53,6 @@ export const ApiCalendar = {
 }
 
 const formatDateTime = adateTime => {
-    console.log('Format adateTime');
     //'yyyy-MM-ddTHH:mm:ss+hh:mm'
     return adateTime.getFullYear()+
         "-"+("0" + (adateTime.getMonth() + 1)).slice(-2)+

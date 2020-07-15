@@ -30,7 +30,6 @@ export default [
     layout: DefaultLayout,
     component: (user) => {
       if(Object.keys(user).length === 0) {
-        console.log(user);
         return(
           <Redirect to="/auth" />
         )
@@ -52,8 +51,6 @@ export default [
     layout: DefaultLayout,
     component: (datosDeUsuario) => {
       if(Object.keys(datosDeUsuario).length === 0) {
-        console.log('datosDeUsuario');
-        console.log(JSON.stringify(datosDeUsuario));
         return(
           <Redirect to="/auth" />
         )

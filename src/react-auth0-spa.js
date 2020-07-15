@@ -49,16 +49,12 @@ export const Auth0Provider = ({
 
         if(existeUsuario) {
             const res = await UsuarioService.crearUsuario(usuario);
-            console.log('User res');
-            console.log(JSON.stringify(res));
         }
         setDatosDeUsuario(usuario);
       }
 
       setLoading(false);
-      console.log("1");
     };
-    console.log("2");
     initAuth0();
     // eslint-disable-next-line
   }, []);
@@ -87,8 +83,6 @@ export const Auth0Provider = ({
   };
 
   const loginUser = (rol, ...p) => {
-    console.log('LOGIN');
-    console.log(rol);
     setRol(rol);
     auth0Client.loginWithRedirect(rol, ...p)
   };
