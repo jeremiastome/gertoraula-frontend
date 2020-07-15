@@ -111,14 +111,14 @@ export default function Alumno(props) {
             <Col data-testid="cardBodyId" className={Classes.cardBodyClasses} lg="1" onClick = { agregarAsistencia }>
                 <div className={Classes.innerWrapperClasses}>
                     <div className={Classes.dataFieldClasses}>
-                        <h6 className={Classes.valueClasses}><i className="material-icons mr-1">{asistio}</i></h6>
+                        <div className={Classes.valueClasses}><i className="material-icons mr-1">{asistio}</i></div>
                     </div>
                 </div>
             </Col>          
             <Col className={Classes.cardBodyClasses} lg="10" onClick = { agregarAsistencia }>
                 <div className={Classes.innerWrapperClasses}>
                     <div className={Classes.dataFieldClasses}>
-                        <h6 data-testid="nombre" className={Classes.valueClasses}>{props.value}</h6>
+                        <div data-testid="nombre" className={Classes.valueClasses}>{props.value}</div>
                     </div>
                 </div>
             </Col>

@@ -1,9 +1,20 @@
 import React from "react";
 import { render, unmountComponentAtNode } from "react-dom";
 import { act, findRenderedComponentWithType } from "react-dom/test-utils";
+import { Col } from "shards-react";
 import Alumnos from "../components/alumnos/Alumnos";
 import 'mutationobserver-shim';
+import { useAuth0 } from "./../react-auth0-spa";
 import Alumno from "../components/alumnos/Alumno";
+
+
+const user = {
+  email: 'testUser@gmail.com',
+  email_verified: true,
+  sub: 'google-oauth2|2147627834623744883746',
+};
+
+jest.mock('./../react-auth0-spa');
 
 jest.mock("react-router-dom", () => ({
     ...jest.requireActual("react-router-dom"),
@@ -21,6 +32,14 @@ let container = null;
 beforeEach(() => {
   container = document.createElement("div");
   document.body.appendChild(container);
+
+  useAuth0.mockReturnValue({
+    isAuthenticated: true,
+    user,
+    datosDeUsuario : {rol: '' },
+    logout: jest.fn(),
+    loginWithRedirect: jest.fn(),
+  });
 });
 
 afterEach(() => {
@@ -36,8 +55,12 @@ it("renderiza lista de alumnos", async () => {
         apellido: "Baez"
     },{
         id: 2,
-        nombre: "Joni",
-        apellido: "Baez"
+        nombre: "Carlos",
+        apellido: "Rodriguez"
+    },{
+      id: 3,
+      nombre: "Martin",
+      apellido: "Perez"
     }
   ];
       
@@ -51,6 +74,7 @@ it("renderiza lista de alumnos", async () => {
     render(<Alumnos data-testid="alumnoId" />, container);
   });
 
-  const title = container.querySelector("[data-testid='title']");
-  expect(title.textContent).toEqual("Curso Curso test");  
+  const alumnosRender = container.querySelectorAll("[data-testid='alumnoId']");
+
+  expect(alumnosRender.length).toEqual(3);  
 });

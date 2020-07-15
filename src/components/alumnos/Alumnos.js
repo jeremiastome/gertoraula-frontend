@@ -14,7 +14,7 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import './styles/Alumnos.css'
-import {isEmpty} from 'lodash'
+import {isEmpty, divide} from 'lodash'
 
 export default function Alumnos() { 
   const attrs = { md: "6", sm: "6" };
@@ -97,10 +97,11 @@ export default function Alumnos() {
                   </div>
                 </ListGroupItem>
               </CardHeader>
-              <br/>
-                {alumnos.map((alumno, idx) => (
-                  <Col id={alumno.id} data-testid="alumnoId" lg="12" md="6" sm="12" className="col-lg mb-4" key={alumno.id}>
-                    <Alumno 
+              <br/>                
+                {alumnos.map((alumno) => (
+                  <div data-testid="alumnoId">
+                  <Col id={alumno.id} lg="12" md="6" sm="12" className="col-lg mb-4" key={alumno.id}>
+                    <Alumno  
                       id={`small-stats-${alumno.id}`}
                       variation="1"
                       value={alumno.nombre +' '+ alumno.apellido}
@@ -108,9 +109,11 @@ export default function Alumnos() {
                       alumno={alumno}
                       refresh={setFecha}
                     />
-                  </Col>            
-                ))}
-            </Card>
+                  </Col>      
+                  </div>      
+                ))}                
+            </Card>           
+            <CardPost cursoId = {location.cursoId}></CardPost>
           </Col>
           <Col lg="4" md="6" sm="12" className="col-lg mb-4">
                <Card>
@@ -153,14 +156,9 @@ export default function Alumnos() {
                   />
                 </CardBody>
               </Card>
-          </Col>
-        </Row>
-        <Row>        
-          <Col lg="8" md="6" sm="12" className="col-lg mb-4">
-            <CardPost cursoId = {location.cursoId}></CardPost>
-          </Col>
-          <Col lg="4" md="6" sm="12" className="col-lg mb-4">
-            <Eventos update={updateEventos} cursoId = {location.cursoId}></Eventos>
+              <Row>
+                <Eventos update={updateEventos} cursoId = {location.cursoId}></Eventos>
+              </Row>
           </Col>
         </Row>
       </Container>
